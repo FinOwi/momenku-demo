@@ -1,31 +1,31 @@
 # Simcha — Demo Tema Undangan Digital
 
-Demo tema undangan pernikahan digital Simcha (by FinOwi Id).
+Demo tema undangan pernikahan digital **Simcha** (by FinOwi Id).
 
-**Galeri tema:** https://finowi.github.io/momenku-demo/galeri-tema.html
+**Website:** https://simcha.my.id/ (galeri tema)
 
 ## 8 Tema (per 2026-10-13)
 
 | Tema | URL |
 |---|---|
-| Modern Elegan ⭐ | https://finowi.github.io/momenku-demo/ |
-| Floral Romance | https://finowi.github.io/momenku-demo/tema/floral/ |
-| Ageng Jawa (adat Jawa) | https://finowi.github.io/momenku-demo/tema/adat-jawa/ |
-| Ulos Heritage (adat Batak) | https://finowi.github.io/momenku-demo/tema/adat-batak/ |
-| Barakah Islami | https://finowi.github.io/momenku-demo/tema/islami/ |
-| Putih Bersih (minimalis) | https://finowi.github.io/momenku-demo/tema/minimalis/ |
-| Kebun Rustic | https://finowi.github.io/momenku-demo/tema/rustic/ |
-| Noir Royal | https://finowi.github.io/momenku-demo/tema/royal/ |
+| Modern Elegan ⭐ | https://simcha.my.id/tema/modern-elegan/ |
+| Floral Romance | https://simcha.my.id/tema/floral/ |
+| Ageng Jawa (adat Jawa) | https://simcha.my.id/tema/adat-jawa/ |
+| Ulos Heritage (adat Batak) | https://simcha.my.id/tema/adat-batak/ |
+| Barakah Islami | https://simcha.my.id/tema/islami/ |
+| Putih Bersih (minimalis) | https://simcha.my.id/tema/minimalis/ |
+| Kebun Rustic | https://simcha.my.id/tema/rustic/ |
+| Noir Royal | https://simcha.my.id/tema/royal/ |
 
 Coba dengan nama tamu personal: `?to=Nama+Tamu` di akhir URL mana pun.
 
 ## Template engine (Fase 1)
 
-Satu template → banyak tema, persis seperti rencana sistem:
+Satu template → banyak tema:
 
 ```
 engine/template.html   → kerangka undangan (cover, countdown, acara, galeri, RSVP, ucapan, amplop)
-engine/themes.json     → 7 config tema (warna, font, foto, ornamen, nama demo)
+engine/themes.json     → config tiap tema (warna, font, foto, ornamen, nama demo)
 engine/build.py        → render ke tema/<slug>/index.html
 ```
 
