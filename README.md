@@ -1,28 +1,41 @@
-# MomenKu — Demo Tema "Modern Elegan"
+# MomenKu — Demo Tema Undangan Digital
 
 Demo tema undangan pernikahan digital MomenKu (by FinOwi Id).
 
-**Live demo:** https://finowi.github.io/momenku-demo/
+**Galeri tema:** https://finowi.github.io/momenku-demo/galeri-tema.html
 
-Coba dengan nama tamu personal: https://finowi.github.io/momenku-demo/?to=Nama+Tamu
+## 8 Tema (per 2026-10-13)
 
-## Isi demo
-- Cover + sapaan nama tamu (`?to=`)
-- Ayat suci & profil mempelai
-- Countdown live + tombol Simpan ke Google Calendar
-- Rangkaian acara (Akad & Resepsi) + tombol Google Maps
-- Galeri foto + lightbox
-- Love story timeline
-- RSVP kehadiran (demo: tersimpan lokal)
-- Buku tamu / ucapan (demo: tersimpan lokal)
-- Amplop digital (BCA + e-wallet, tombol salin nomor)
+| Tema | URL |
+|---|---|
+| Modern Elegan ⭐ | https://finowi.github.io/momenku-demo/ |
+| Floral Romance | https://finowi.github.io/momenku-demo/tema/floral/ |
+| Ageng Jawa (adat Jawa) | https://finowi.github.io/momenku-demo/tema/adat-jawa/ |
+| Ulos Heritage (adat Batak) | https://finowi.github.io/momenku-demo/tema/adat-batak/ |
+| Barakah Islami | https://finowi.github.io/momenku-demo/tema/islami/ |
+| Putih Bersih (minimalis) | https://finowi.github.io/momenku-demo/tema/minimalis/ |
+| Kebun Rustic | https://finowi.github.io/momenku-demo/tema/rustic/ |
+| Noir Royal | https://finowi.github.io/momenku-demo/tema/royal/ |
+
+Coba dengan nama tamu personal: `?to=Nama+Tamu` di akhir URL mana pun.
+
+## Template engine (Fase 1)
+
+Satu template → banyak tema, persis seperti rencana sistem:
+
+```
+engine/template.html   → kerangka undangan (cover, countdown, acara, galeri, RSVP, ucapan, amplop)
+engine/themes.json     → 7 config tema (warna, font, foto, ornamen, nama demo)
+engine/build.py        → render ke tema/<slug>/index.html
+```
+
+Tambah tema baru = tambah 1 blok JSON + `python3 engine/build.py`. Nanti `themes.json`
+diganti input form pelanggan (nama, tanggal, foto) — fondasi sistem order manual via WA.
+
+## Isi tiap demo
+Cover + sapaan nama tamu (`?to=`) · ayat/quote · profil mempelai · countdown live ·
+Simpan ke Google Calendar · Akad & Resepsi + Google Maps · galeri + lightbox ·
+love story · RSVP · buku ucapan · amplop digital + salin nomor · musik (demo).
 
 ## Data
-Seluruh nama, tanggal, alamat, dan nomor rekening di demo ini **fiktif**.
-
-## Struktur (rencana template engine Fase 1)
-```
-/index.html          → tema "Modern Elegan"
-/assets/            → foto tema
-/data.json           → (nanti) 1 file data per pelanggan
-```
+Seluruh nama, tanggal, alamat, dan nomor rekening di demo ini **fiktif**. Foto dibuat dengan AI.

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Galeri Tema — MomenKu Undangan Digital</title>
+<meta name="description" content="Pilih tema undangan pernikahan digital favoritmu — 8 tema premium MomenKu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#faf6ef;--ink:#2b2520;--soft:#6d6357;--gold:#b08d57;--gold-deep:#8f6f3e;--line:rgba(176,141,87,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--ivory);color:var(--ink);-webkit-font-smoothing:antialiased}
+header{text-align:center;padding:64px 24px 12px;max-width:640px;margin:0 auto}
+header .brand{font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-deep);font-weight:600}
+header h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:600;margin:10px 0 8px}
+header p{color:var(--soft);font-size:14.5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:28px 18px 60px;max-width:720px;margin:0 auto}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(143,111,62,.1);display:flex;flex-direction:column}
+.card .thumb{aspect-ratio:3/4;overflow:hidden;background:#eee;position:relative}
+.card .thumb img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.card .thumb .tag{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.55);color:#fff;font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border-radius:999px;backdrop-filter:blur(4px)}
+.card .body{padding:16px 16px 18px;text-align:center;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h2{font-family:'Playfair Display',serif;font-size:19px;font-weight:600}
+.card p{font-size:12.5px;color:var(--soft);flex:1}
+.card a{display:inline-block;margin-top:8px;border:1px solid var(--gold);color:var(--gold-deep);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;border-radius:999px;text-decoration:none}
+.card a:active{background:var(--gold);color:#fff}
+footer{text-align:center;padding:0 24px 48px;color:var(--soft);font-size:12px}
+footer b{color:var(--gold-deep)}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr);max-width:1080px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">MomenKu</div>
+  <h1>Galeri Tema</h1>
+  <p>8 tema undangan pernikahan digital premium.<br>Ketuk <b>Lihat Demo</b> untuk merasakan tiap tema.</p>
+</header>
+<div class="grid">
+  <div class="card"><div class="thumb"><img src="assets/hero.jpg" alt="Modern Elegan" loading="lazy"><span class="tag">Terpopuler</span></div><div class="body"><h2>Modern Elegan</h2><p>Hangat & timeless dengan aksen emas klasik.</p><a href="./">Lihat Demo</a></div></div>
+  <div class="card"><div class="thumb"><img src="assets/hero-floral.jpg" alt="Floral Romance" loading="lazy"></div><div class="body"><h2>Floral Romance</h2><p>Romantis blush pink dikelilingi bunga mawar.</p><a href="tema/floral/">Lihat Demo</a></div></div>
+  <div class="card"><div class="thumb"><img src="assets/hero-jawa.jpg" alt="Ageng Jawa" loading="lazy"></div><div class="body"><h2>Ageng Jawa</h2><p>Kemegahan adat Jawa: beskap, kebaya & batik.</p><a href="tema/adat-jawa/">Lihat Demo</a></div></div>
+  <div class="card"><div class="thumb"><img src="assets/hero-batak.jpg" alt="Ulos Heritage" loading="lazy"></div><div class="body"><h2>Ulos Heritage</h2><p>Wibawa adat Batak dengan kain ulos merah emas.</p><a href="tema/adat-batak/">Lihat Demo</a></div></div>
+  <div class="card"><div class="thumb"><img src="assets/hero-islami.jpg" alt="Barakah Islami" loading="lazy"></div><div class="body"><h2>Barakah Islami</h2><p>Anggun emerald dengan ornamen arabesque.</p><a href="tema/islami/">Lihat Demo</a></div></div>
+  <div class="card"><div class="thumb"><img src="assets/hero.jpg" style="filter:grayscale(1)" alt="Putih Bersih" loading="lazy"></div><div class="body"><h2>Putih Bersih</h2><p>Minimalis monokrom, bersih tanpa distraksi.</p><a href="tema/minimalis/">Lihat Demo</a></div></div>
+  <div class="card"><div class="thumb"><img src="assets/galeri-2.jpg" style="filter:sepia(.35)" alt="Kebun Rustic" loading="lazy"></div><div class="body"><h2>Kebun Rustic</h2><p>Hangat terracotta ala pesta kebun.</p><a href="tema/rustic/">Lihat Demo</a></div></div>
+  <div class="card"><div class="thumb"><img src="assets/hero.jpg" style="filter:brightness(.75) contrast(1.05)" alt="Noir Royal" loading="lazy"><span class="tag">Premium</span></div><div class="body"><h2>Noir Royal</h2><p>Mewah hitam & emas champagne.</p><a href="tema/royal/">Lihat Demo</a></div></div>
+</div>
+<footer>Dibuat dengan <b>MomenKu</b> by FinOwi Id · Seluruh foto & data demo bersifat ilustrasi</footer>
+</body>
+</html>
