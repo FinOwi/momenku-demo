@@ -1,6 +1,6 @@
-# MomenKu — Demo Tema Undangan Digital
+# Simcha — Demo Tema Undangan Digital
 
-Demo tema undangan pernikahan digital MomenKu (by FinOwi Id).
+Demo tema undangan pernikahan digital Simcha (by FinOwi Id).
 
 **Galeri tema:** https://finowi.github.io/momenku-demo/galeri-tema.html
 
