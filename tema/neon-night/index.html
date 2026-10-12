@@ -50,7 +50,7 @@ h2.title{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.2
 @keyframes pulse{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.18)}50%{box-shadow:0 10px 34px rgba(255,45,149,.6)}}
 .demo-badge{position:absolute;top:14px;right:14px;z-index:3;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:10px;letter-spacing:.2em;padding:6px 12px;border-radius:999px;backdrop-filter:blur(4px)}
 /* ---------- MUSIC ---------- */
-#musicBtn{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:90;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.14)}
+#musicBtn{position:fixed;right:18px;bottom:calc(86px + env(safe-area-inset-bottom));z-index:90;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.14)}
 #musicBtn.show{display:flex}
 #musicBtn svg{width:20px;height:20px;stroke:var(--accent-deep);fill:none;stroke-width:2}
 #musicBtn .bars{display:none;align-items:flex-end;gap:2.5px;height:18px}
@@ -142,6 +142,24 @@ footer .credit b{color:#00e5ff}
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:#2b2520;color:#fff;font-size:13px;padding:12px 22px;border-radius:999px;opacity:0;pointer-events:none;transition:all .35s;z-index:130;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(min-width:700px){section{max-width:720px} #cover h1{font-size:52px}}
+/* ---------- DRESSCODE ---------- */
+.swatches{display:flex;gap:14px;justify-content:center;margin:22px 0 14px}
+.swatches span{width:46px;height:46px;border-radius:50%;background:var(--sw);border:2px solid var(--line);box-shadow:0 1px 2px rgba(0,0,0,.07),0 10px 24px rgba(0,0,0,.10)}
+.dress-note{font-size:15px}
+.dress-note b{font-family:var(--serif);font-size:19px;color:var(--accent-deep)}
+/* ---------- LIVESTREAM ---------- */
+.live-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#e63946;margin-right:8px;animation:blinkdot 1.4s infinite}
+@keyframes blinkdot{50%{opacity:.25}}
+/* ---------- BOTTOM NAV ---------- */
+#bnav{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translate(-50%,0);z-index:85;display:flex;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 10px;box-shadow:0 12px 32px rgba(0,0,0,.16);transition:transform .5s ease}
+body.locked #bnav{transform:translate(-50%,90px)}
+#bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--ink-soft);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;min-width:56px;padding:6px 4px;border-radius:14px}
+#bnav a svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#bnav a.on{color:var(--accent-deep)}
+/* ---------- COVER VIDEO ---------- */
+#cover .bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#cover .bar{position:absolute;left:0;right:0;height:7%;background:#000;z-index:2}
+#cover .bar.top{top:0}#cover .bar.bot{bottom:0}
 /* ---------- SPATIAL DEPTH (semua tema) ---------- */
 .depth-glow{position:fixed;border-radius:50%;pointer-events:none;z-index:1;filter:blur(70px);opacity:.13;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);will-change:transform}
 main,footer{position:relative;z-index:2}
@@ -179,10 +197,11 @@ h2.title,#names .couple{text-shadow:0 0 18px rgba(255,45,149,.65),0 0 46px rgba(
   </div>
 </div>
 
-<button id="musicBtn" aria-label="Musik">
-  <svg class="note" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+<button id="musicBtn" aria-label="Musik">  <svg class="note" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
   <span class="bars"><i></i><i></i><i></i></span>
 </button>
+
+
 
 <main id="main">
   <section id="quote">
@@ -249,6 +268,29 @@ h2.title,#names .couple{text-shadow:0 0 18px rgba(255,45,149,.65),0 0 46px rgba(
       <div class="actions">
         <a class="btn small" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Graha+Harmoni+Convention+Hall+Medan">Lihat Lokasi</a>
       </div>
+    </div>
+  </section>
+
+  <section id="dresscode">
+    <p class="eyebrow rv">Dresscode</p>
+    <h2 class="title rv">Padu Padan Tamu</h2>
+    <div class="divider rv"><span>⚡</span></div>
+    <p class="sub rv">Kami akan sangat senang jika Bapak/Ibu/Saudara/i berkenan menyesuaikan warna pakaian dengan tema berikut:</p>
+    <div class="swatches rv">
+      <span style="--sw:#8a6d4b"></span><span style="--sw:#e9dcc3"></span><span style="--sw:#7d8c7a"></span><span style="--sw:#b08d57"></span>
+    </div>
+    <p class="dress-note rv"><b>Earth Tone</b><br>cokelat · krem · sage · emas</p>
+  </section>
+
+  <section id="livestream">
+    <p class="eyebrow rv">Siaran Langsung</p>
+    <h2 class="title rv">Ikuti Dari Mana Saja</h2>
+    <div class="divider rv"><span>⚡</span></div>
+    <p class="sub rv">Bagi yang berhalangan hadir, momen sakral kami disiarkan langsung:</p>
+    <div class="card rv" style="text-align:center">
+      <p style="font-size:14px;margin-bottom:6px"><span class="live-dot"></span><b>Akad Nikah</b> — Sabtu, 20 Feb 2027 · 08.00 WIB</p>
+      <p class="sub" style="margin-bottom:16px">Tautan streaming dibagikan H-1 kepada tamu terkonfirmasi.</p>
+      <a class="btn small" href="#" id="liveBtn">Tonton Live Streaming</a>
     </div>
   </section>
 
@@ -337,6 +379,14 @@ h2.title,#names .couple{text-shadow:0 0 18px rgba(255,45,149,.65),0 0 46px rgba(
   <p class="fam">Wassalamu’alaikum Wr. Wb.<br><br>Kami yang berbahagia,<br><b style="font-family:var(--serif);font-size:18px;color:#00e5ff">Rizky &amp; Putri</b><br>beserta keluarga</p>
   <p class="credit">Dibuat dengan <b>Simcha</b> · Demo Tema Neon Night</p>
 </footer>
+
+<nav id="bnav" aria-label="Navigasi">
+  <a href="#quote" data-s="quote"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Beranda</span></a>
+  <a href="#mempelai" data-s="mempelai"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.5 3 13.2 3 9.3 3 6.4 5.2 4.5 7.7 4.5c1.7 0 3.3.9 4.3 2.4 1-1.5 2.6-2.4 4.3-2.4 2.5 0 4.7 1.9 4.7 4.8 0 3.9-4 7.2-9 11.2z"/></svg><span>Mempelai</span></a>
+  <a href="#acara" data-s="acara"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span>Acara</span></a>
+  <a href="#galeri" data-s="galeri"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="M4.5 17.5l4.5-4.5 3 3 3.5-3.5 4 4"/></svg><span>Galeri</span></a>
+  <a href="#ucapan" data-s="ucapan"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H4l2.3-2.9A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4.5"/></svg><span>Ucapan</span></a>
+</nav>
 
 <div id="lb"><button class="x" aria-label="Tutup">×</button><img src="" alt="Foto"></div>
 <div id="toast"></div>
@@ -454,6 +504,25 @@ function toast(msg){
 })();
 </script>
 <script>
+/* ---------- BOTTOM NAV scroll spy + live button ---------- */
+(function(){
+  var nav=document.getElementById('bnav');if(!nav)return;
+  var links=nav.querySelectorAll('a');
+  function setActive(id){
+    links.forEach(function(a){a.classList.toggle('on',a.getAttribute('data-s')===id);});
+  }
+  var spy=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting)setActive(e.target.id);});
+  },{rootMargin:'-40% 0px -55% 0px'});
+  ['quote','mempelai','acara','galeri','ucapan'].forEach(function(id){
+    var s=document.getElementById(id);if(s)spy.observe(s);
+  });
+  links.forEach(function(a){
+    a.addEventListener('click',function(){setActive(a.getAttribute('data-s'));});
+  });
+  var live=document.getElementById('liveBtn');
+  if(live)live.addEventListener('click',function(e){e.preventDefault();toast('Mode demo: tautan streaming dibagikan H-1');});
+})();
 /* ---------- THEME FX (per-tema) ---------- */
 
 (function(){

@@ -15,6 +15,8 @@ def main():
     rendered = []
     for t in themes:
         t['SLUG'] = t['slug']
+        t.setdefault('ROOM_HTML', '')
+        t.setdefault('COVER_VIDEO', '<div class="bg"></div>')
         missing = keys - set('@%s@' % k for k in t.keys())
         if missing:
             print('WARN %s: missing keys %s' % (t['slug'], sorted(missing)), file=sys.stderr)
