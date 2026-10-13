@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>@C1@ &amp; @C2@ — Undangan Pernikahan</title>
-<meta name="description" content="Undangan Pernikahan Digital @C1FULL@ & @C2FULL@ — Sabtu, 20 Februari 2027">
+<meta name="description" content="Undangan Pernikahan Digital @C1FULL@ & @C2FULL@ — @DATE_LABEL@">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="@FONT_URL@" rel="stylesheet">
@@ -180,7 +180,7 @@ body::after{content:"";position:fixed;inset:0;z-index:96;pointer-events:none;opa
   <div class="inner">
     <div class="kicker">Undangan Pernikahan</div>
     <h1>@C1@ <span class="amp">&amp;</span> @C2@</h1>
-    <div class="date">SABTU · 20 FEBRUARI 2027</div>
+    <div class="date">@DATE_COVER@</div>
     <div class="guest">Kepada Yth.<br>Bapak/Ibu/Saudara/i<b id="guestName">Tamu Undangan</b></div>
     <button class="btn" id="openBtn">Buka Undangan</button>
   </div>
@@ -204,7 +204,7 @@ body::after{content:"";position:fixed;inset:0;z-index:96;pointer-events:none;opa
     <p class="sub rv">Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyempurnakan separuh agama kami dalam ikatan suci pernikahan.</p>
     <div class="divider rv"><span>@DIV_GLYPH@</span></div>
     <div class="couple rv">@C1FULL@<br><span class="amp">&amp;</span><br>@C2FULL@</div>
-    <div class="wed-date rv">SABTU, 20 FEBRUARI 2027</div>
+    <div class="wed-date rv">@DATE_COVER@</div>
     <div class="count rv">
       <div class="cell"><div class="num" id="cdD">0</div><div class="lbl">Hari</div></div>
       <div class="cell"><div class="num" id="cdH">0</div><div class="lbl">Jam</div></div>
@@ -241,7 +241,7 @@ body::after{content:"";position:fixed;inset:0;z-index:96;pointer-events:none;opa
     <div class="event rv">
       <h3>Akad Nikah</h3>
       <div class="dow">Sabtu</div>
-      <div class="bigdate">20 Februari 2027</div>
+      <div class="bigdate">@DATE_SHORT@</div>
       <div class="time">Pukul 08.00 – 10.00 WIB</div>
       <div class="venue"><b>@VENUE@</b>@VENUE_ADDR@</div>
       <div class="actions">
@@ -251,7 +251,7 @@ body::after{content:"";position:fixed;inset:0;z-index:96;pointer-events:none;opa
     <div class="event rv">
       <h3>Resepsi</h3>
       <div class="dow">Sabtu</div>
-      <div class="bigdate">20 Februari 2027</div>
+      <div class="bigdate">@DATE_SHORT@</div>
       <div class="time">Pukul 11.00 – 14.00 WIB</div>
       <div class="venue"><b>@VENUE@</b>@VENUE_ADDR@</div>
       <div class="actions">
@@ -288,9 +288,7 @@ body::after{content:"";position:fixed;inset:0;z-index:96;pointer-events:none;opa
     <h2 class="title rv">Momen Bahagia Kami</h2>
     <div class="divider rv"><span>@DIV_GLYPH@</span></div>
     <div class="ggrid rv">
-      <a href="@G1@"><img src="@G1@" alt="@C1@ dan @C2@" loading="lazy"></a>
-      <a href="@G2@"><img src="@G2@" alt="Momen bahagia" loading="lazy"></a>
-      <a href="@G3@"><img src="@G3@" alt="Momen bahagia" loading="lazy"></a>
+      @GALLERY_ITEMS@
     </div>
   </section>
 
@@ -308,7 +306,7 @@ body::after{content:"";position:fixed;inset:0;z-index:96;pointer-events:none;opa
   <section id="rsvp">
     <p class="eyebrow rv">Konfirmasi</p>
     <h2 class="title rv">RSVP Kehadiran</h2>
-    <p class="sub rv">Mohon konfirmasi kehadiran Anda sebelum 10 Februari 2027.</p>
+    <p class="sub rv">Mohon konfirmasi kehadiran Anda sebelum @DATE_RSVP@.</p>
     <div class="card rv">
       <form id="rsvpForm">
         <div class="field"><label>Nama Lengkap</label><input type="text" id="fNama" placeholder="Nama Anda" required></div>
@@ -350,16 +348,16 @@ body::after{content:"";position:fixed;inset:0;z-index:96;pointer-events:none;opa
     <p class="sub rv">Doa restu Anda adalah hadiah terindah. Namun jika berkenan memberi tanda kasih, kami sediakan dengan penuh syukur.</p>
     <div class="divider rv"><span>@DIV_GLYPH@</span></div>
     <div class="gift rv">
-      <div class="bank">Bank BCA</div>
-      <div class="num">123 456 7890</div>
-      <div class="an">a.n. @C1FULL@</div>
-      <button data-copy="1234567890">Salin Nomor</button>
+      <div class="bank">@GIFT1_BANK@</div>
+      <div class="num">@GIFT1_NUM@</div>
+      <div class="an">@GIFT1_AN@</div>
+      <button data-copy="@GIFT1_RAW@">Salin Nomor</button>
     </div>
     <div class="gift rv">
-      <div class="bank">DANA / OVO / GoPay</div>
-      <div class="num">0812 3456 7890</div>
-      <div class="an">a.n. @C2FULL@</div>
-      <button data-copy="081234567890">Salin Nomor</button>
+      <div class="bank">@GIFT2_BANK@</div>
+      <div class="num">@GIFT2_NUM@</div>
+      <div class="an">@GIFT2_AN@</div>
+      <button data-copy="@GIFT2_RAW@">Salin Nomor</button>
     </div>
   </section>
 </main>
@@ -398,7 +396,7 @@ document.getElementById('musicBtn').addEventListener('click',function(){
   this.classList.toggle('playing',playing);
   toast(playing?'Mode demo: musik dinyalakan':'Mode demo: musik dimatikan');
 });
-var target=new Date('2027-02-20T08:00:00+07:00').getTime();
+var target=new Date('@DATETIME_ISO@').getTime();
 function tick(){
   var d=target-Date.now(); if(d<0)d=0;
   var dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4),ss=Math.floor(d%6e4/1e3);
