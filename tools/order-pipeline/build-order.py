@@ -28,8 +28,8 @@ IMG_EXT = ('.jpg', '.jpeg', '.png', '.webp')
 
 
 def supa_cfg():
-    # kredensial dari file yang sama dipakai OGKasir (600, jangan di-commit)
-    p = os.path.expanduser('~/workspace/ogkasir-backup/supabase.json')
+    # kredensial project Supabase khusus Simcha (600, jangan di-commit)
+    p = os.path.expanduser('~/workspace/simcha-backup/supabase.json')
     d = json.load(open(p, encoding='utf-8'))
     return d['url'], d['anon_key']
 
