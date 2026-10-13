@@ -420,15 +420,52 @@ document.querySelectorAll('[data-copy]').forEach(function(b){
     else toast(v);
   });
 });
-/* ---------- SIMCHA RSVP BACKEND (Supabase, Rp0) ---------- */
-var SIMCHA_API='https://ypdfdaxgqgkaupsyiauy.supabase.co/rest/v1/rpc/';
-var SIMCHA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGZkYXhncWdrYXVwc3lpYXV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4MjQ2MzEsImV4cCI6MjEwNzQwMDYzMX0.w9d2wZhcdgevpSEsFcPYt1x122w09X2Ai1GFkAIlLRE';
+/* ---------- SIMCHA RSVP BACKEND (Firebase Firestore, Rp0) ---------- */
+var FB_PID='simcha-rsvp';
+var FB_KEY='AIzaSyBDV87UujFrAYk5QzmND4KCXQNdQSUk4v0';
+var FB_BASE='https://firestore.googleapis.com/v1/projects/'+FB_PID+'/databases/(default)/documents';
 var SIMCHA_SLUG='minimalis';
-function sbRpc(fn,body){
-  return fetch(SIMCHA_API+fn,{method:'POST',
-    headers:{'apikey':SIMCHA_KEY,'Authorization':'Bearer '+SIMCHA_KEY,'Content-Type':'application/json'},
-    body:JSON.stringify(body)}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();});
+function fbFields(doc){
+  var f={};
+  for(var k in doc){
+    var v=doc[k];
+    if(v===null||v===undefined)continue;
+    f[k]=(typeof v==='number')?{integerValue:String(Math.round(v))}:{stringValue:String(v)};
+  }
+  return f;
 }
+function fbUnwrap(f){
+  var o={};
+  for(var k in f){
+    var v=f[k];
+    if(v.stringValue!==undefined)o[k]=v.stringValue;
+    else if(v.integerValue!==undefined)o[k]=parseInt(v.integerValue,10);
+  }
+  return o;
+}
+function fbWrite(doc){
+  return fetch(FB_BASE+'/rsvps?key='+FB_KEY,{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({fields:fbFields(doc)})
+  }).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();});
+}
+function fbList(){
+  return fetch(FB_BASE+':runQuery?key='+FB_KEY,{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({structuredQuery:{
+      from:[{collectionId:'rsvps'}],
+      where:{fieldFilter:{field:{fieldPath:'slug'},op:'EQUAL',value:{stringValue:SIMCHA_SLUG}}},
+      limit:50
+    }})
+  }).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
+  .then(function(rows){
+    return (rows||[]).filter(function(x){return x.document&&x.document.fields;})
+      .map(function(x){return fbUnwrap(x.document.fields);})
+      .filter(function(d){return d.message;})
+      .sort(function(a,b){return String(b.createdAt||'').localeCompare(String(a.createdAt||''));});
+  });
+}
+function fbNow(){return new Date().toISOString();}
 document.getElementById('rsvpForm').addEventListener('submit',function(ev){
   ev.preventDefault();
   var nama=document.getElementById('fNama').value.trim();
@@ -439,9 +476,9 @@ document.getElementById('rsvpForm').addEventListener('submit',function(ev){
   try{localStorage.setItem('momenku-minimalis-rsvp',JSON.stringify({nama:nama,hadir:hadirRaw,jumlah:jumlah}));}catch(e){}
   document.getElementById('rsvpForm').style.display='none';
   document.getElementById('rsvpDone').style.display='block';
-  sbRpc('simcha_rsvp_submit',{p_slug:SIMCHA_SLUG,p_name:nama,p_attendance:hadir,p_guest_count:jumlah,p_message:null,p_hp:''})
+  fbWrite({slug:SIMCHA_SLUG,name:nama,attendance:hadir,guestCount:jumlah,createdAt:fbNow()})
     .then(function(){toast('Konfirmasi terkirim, terima kasih!');})
-    .catch(function(){/* backend belum siap/offline: data sudah aman di perangkat */});
+    .catch(function(){});
 });
 var samples=[
   {n:'Keluarga Besar',m:'Barakallahu laka wa baraka alaika wa jamaa bainakuma fii khair. Selamat menempuh hidup baru!'},
@@ -463,22 +500,20 @@ function renderWish(serverRows){
   list.forEach(function(w){box.appendChild(wishCard(w.n,w.m));});
 }
 renderWish();
-sbRpc('simcha_rsvp_list',{p_slug:SIMCHA_SLUG}).then(function(rows){
-  if(rows&&rows.length)renderWish(rows);
-}).catch(function(){/* offline: tampilkan lokal + contoh */});
+fbList().then(function(rows){if(rows&&rows.length)renderWish(rows);}).catch(function(){});
 document.getElementById('wKirim').addEventListener('click',function(){
   var n=document.getElementById('wNama').value.trim(),m=document.getElementById('wPesan').value.trim();
   if(!n||!m){toast('Isi nama & ucapan dulu ya');return;}
   if(n.length>50||m.length>500){toast('Nama/ucapan terlalu panjang');return;}
+  if(document.getElementById('wHp').value){return;}
   var btn=document.getElementById('wKirim');btn.disabled=true;btn.textContent='Mengirim...';
   function done(okMsg){
     document.getElementById('wNama').value='';document.getElementById('wPesan').value='';
     btn.disabled=false;btn.textContent='Kirim Ucapan';toast(okMsg);
   }
-  sbRpc('simcha_rsvp_submit',{p_slug:SIMCHA_SLUG,p_name:n,p_attendance:null,p_guest_count:null,
-    p_message:m,p_hp:document.getElementById('wHp').value||''})
+  fbWrite({slug:SIMCHA_SLUG,name:n,message:m,createdAt:fbNow()})
     .then(function(){
-      sbRpc('simcha_rsvp_list',{p_slug:SIMCHA_SLUG}).then(function(rows){renderWish(rows||[]);}).catch(function(){renderWish();});
+      fbList().then(function(rows){renderWish(rows||[]);}).catch(function(){renderWish();});
       done('Ucapan terkirim, terima kasih!');
     })
     .catch(function(){

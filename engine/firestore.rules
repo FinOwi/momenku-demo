@@ -1,0 +1,48 @@
+rules_version = '2';
+
+// Simcha RSVP — Firestore Security Rules.
+// Data ucapan sifatnya PUBLIK by design (tampil di halaman undangan),
+// jadi read terbuka; write dikunci validasi ketat. Update/delete ditolak total.
+//
+// CARA PAKAI: Firebase Console → Firestore Database → Rules → paste → Publish.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /rsvps/{doc} {
+      // Siapa pun boleh BACA (daftar ucapan tampil publik di undangan).
+      allow read: if true;
+
+      // TULIS hanya dokumen baru yang lolos validasi:
+      allow create: if
+        // slug: id undangan, mis. "modern-elegan" / "rizky-putri"
+        request.resource.data.slug is string
+        && request.resource.data.slug.size() >= 1
+        && request.resource.data.slug.size() <= 60
+        // nama tamu: 2-50 karakter
+        && request.resource.data.name is string
+        && request.resource.data.name.size() >= 2
+        && request.resource.data.name.size() <= 50
+        // ucapan: opsional, maks 500 karakter
+        && (!('message' in request.resource.data)
+            || !(request.resource.data.message is string)
+            || request.resource.data.message.size() <= 500)
+        // kehadiran: opsional, hanya dua nilai ini
+        && (!('attendance' in request.resource.data)
+            || request.resource.data.attendance in ['hadir', 'tidak'])
+        // jumlah tamu: opsional, 1-20
+        && (!('guestCount' in request.resource.data)
+            || (request.resource.data.guestCount is int
+                && request.resource.data.guestCount >= 1
+                && request.resource.data.guestCount <= 20))
+        // createdAt: wajib ada (ISO string)
+        && request.resource.data.createdAt is string
+        // tidak boleh ada field selain yang dikenal (cegah spam field)
+        && request.resource.data.keys().hasOnly(
+             ['slug', 'name', 'attendance', 'guestCount', 'message', 'createdAt']);
+
+      // Tidak ada update / delete dari publik.
+      allow update, delete: if false;
+    }
+  }
+}
