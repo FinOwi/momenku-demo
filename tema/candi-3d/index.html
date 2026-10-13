@@ -332,7 +332,7 @@ h2.title,#names .couple{text-shadow:0 2px 0 rgba(0,0,0,.35),0 0 26px rgba(212,16
       <div id="rsvpDone">
         <div class="ok"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
         <h3 style="font-family:var(--serif);font-size:20px">Terima kasih!</h3>
-        <p style="font-size:14px;color:var(--ink-soft)">Konfirmasi Anda telah kami terima.<br><span style="font-size:12px">(Mode demo — data tersimpan di perangkat ini)</span></p>
+        <p style="font-size:14px;color:var(--ink-soft)">Konfirmasi Anda telah kami terima.</p>
       </div>
     </div>
   </section>
@@ -343,8 +343,9 @@ h2.title,#names .couple{text-shadow:0 2px 0 rgba(0,0,0,.35),0 0 26px rgba(212,16
     <div class="divider rv"><span>◈</span></div>
     <div id="wishList" class="rv"></div>
     <div class="card rv">
-      <div class="field"><label>Nama</label><input type="text" id="wNama" placeholder="Nama Anda"></div>
-      <div class="field"><label>Ucapan</label><textarea id="wPesan" rows="3" placeholder="Tulis doa & ucapan..."></textarea></div>
+      <div class="field"><label>Nama</label><input type="text" id="wNama" placeholder="Nama Anda" maxlength="50"></div>
+      <div class="field"><label>Ucapan</label><textarea id="wPesan" rows="3" placeholder="Tulis doa & ucapan..." maxlength="500"></textarea></div>
+      <input type="text" id="wHp" style="display:none!important" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button class="btn small" id="wKirim" style="width:100%">Kirim Ucapan</button>
     </div>
   </section>
@@ -425,38 +426,73 @@ document.querySelectorAll('[data-copy]').forEach(function(b){
     else toast(v);
   });
 });
+/* ---------- SIMCHA RSVP BACKEND (Supabase, Rp0) ---------- */
+var SIMCHA_API='https://ypdfdaxgqgkaupsyiauy.supabase.co/rest/v1/rpc/';
+var SIMCHA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGZkYXhncWdrYXVwc3lpYXV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4MjQ2MzEsImV4cCI6MjEwNzQwMDYzMX0.w9d2wZhcdgevpSEsFcPYt1x122w09X2Ai1GFkAIlLRE';
+var SIMCHA_SLUG='candi-3d';
+function sbRpc(fn,body){
+  return fetch(SIMCHA_API+fn,{method:'POST',
+    headers:{'apikey':SIMCHA_KEY,'Authorization':'Bearer '+SIMCHA_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify(body)}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();});
+}
 document.getElementById('rsvpForm').addEventListener('submit',function(ev){
   ev.preventDefault();
   var nama=document.getElementById('fNama').value.trim();
   if(!nama){toast('Isi nama dulu ya');return;}
-  try{localStorage.setItem('momenku-candi-3d-rsvp',JSON.stringify({nama:nama,hadir:document.querySelector('input[name=hadir]:checked').value,jumlah:document.getElementById('fJumlah').value}));}catch(e){}
+  var hadirRaw=document.querySelector('input[name=hadir]:checked').value;
+  var hadir=(hadirRaw==='Hadir')?'hadir':'tidak';
+  var jumlah=parseInt(document.getElementById('fJumlah').value)||1;
+  try{localStorage.setItem('momenku-candi-3d-rsvp',JSON.stringify({nama:nama,hadir:hadirRaw,jumlah:jumlah}));}catch(e){}
   document.getElementById('rsvpForm').style.display='none';
   document.getElementById('rsvpDone').style.display='block';
+  sbRpc('simcha_rsvp_submit',{p_slug:SIMCHA_SLUG,p_name:nama,p_attendance:hadir,p_guest_count:jumlah,p_message:null,p_hp:''})
+    .then(function(){toast('Konfirmasi terkirim, terima kasih!');})
+    .catch(function(){/* backend belum siap/offline: data sudah aman di perangkat */});
 });
 var samples=[
   {n:'Keluarga Besar',m:'Barakallahu laka wa baraka alaika wa jamaa bainakuma fii khair. Selamat menempuh hidup baru!'},
   {n:'Dinda & Fajar',m:'Happy wedding! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Sampai jumpa di hari H!'},
   {n:'Sahabat Lama',m:'Akhirnya! Selamat ya, doa terbaik dari kami yang belum bisa hadir.'}
 ];
-function renderWish(){
+function wishCard(n,m){
+  var d=document.createElement('div');d.className='wish';
+  d.innerHTML='<div class="n"></div><div class="m"></div>';
+  d.querySelector('.n').textContent=n;d.querySelector('.m').textContent=m;
+  return d;
+}
+function renderWish(serverRows){
   var box=document.getElementById('wishList');box.innerHTML='';
   var extra=[];try{extra=JSON.parse(localStorage.getItem('momenku-candi-3d-ucapan')||'[]');}catch(e){}
-  extra.concat(samples).forEach(function(w){
-    var d=document.createElement('div');d.className='wish';
-    d.innerHTML='<div class="n"></div><div class="m"></div>';
-    d.querySelector('.n').textContent=w.n;d.querySelector('.m').textContent=w.m;
-    box.appendChild(d);
-  });
+  var list=[];
+  (serverRows||[]).forEach(function(r){list.push({n:r.name,m:r.message});});
+  list=list.concat(extra).concat(samples);
+  list.forEach(function(w){box.appendChild(wishCard(w.n,w.m));});
 }
 renderWish();
+sbRpc('simcha_rsvp_list',{p_slug:SIMCHA_SLUG}).then(function(rows){
+  if(rows&&rows.length)renderWish(rows);
+}).catch(function(){/* offline: tampilkan lokal + contoh */});
 document.getElementById('wKirim').addEventListener('click',function(){
   var n=document.getElementById('wNama').value.trim(),m=document.getElementById('wPesan').value.trim();
   if(!n||!m){toast('Isi nama & ucapan dulu ya');return;}
-  var extra=[];try{extra=JSON.parse(localStorage.getItem('momenku-candi-3d-ucapan')||'[]');}catch(e){}
-  extra.unshift({n:n,m:m});
-  try{localStorage.setItem('momenku-candi-3d-ucapan',JSON.stringify(extra.slice(0,20)));}catch(e){}
-  document.getElementById('wNama').value='';document.getElementById('wPesan').value='';
-  renderWish();toast('Ucapan terkirim, terima kasih!');
+  if(n.length>50||m.length>500){toast('Nama/ucapan terlalu panjang');return;}
+  var btn=document.getElementById('wKirim');btn.disabled=true;btn.textContent='Mengirim...';
+  function done(okMsg){
+    document.getElementById('wNama').value='';document.getElementById('wPesan').value='';
+    btn.disabled=false;btn.textContent='Kirim Ucapan';toast(okMsg);
+  }
+  sbRpc('simcha_rsvp_submit',{p_slug:SIMCHA_SLUG,p_name:n,p_attendance:null,p_guest_count:null,
+    p_message:m,p_hp:document.getElementById('wHp').value||''})
+    .then(function(){
+      sbRpc('simcha_rsvp_list',{p_slug:SIMCHA_SLUG}).then(function(rows){renderWish(rows||[]);}).catch(function(){renderWish();});
+      done('Ucapan terkirim, terima kasih!');
+    })
+    .catch(function(){
+      var extra=[];try{extra=JSON.parse(localStorage.getItem('momenku-candi-3d-ucapan')||'[]');}catch(e){}
+      extra.unshift({n:n,m:m});
+      try{localStorage.setItem('momenku-candi-3d-ucapan',JSON.stringify(extra.slice(0,20)));}catch(e){}
+      renderWish();done('Ucapan tersimpan di perangkat ini');
+    });
 });
 var toastT;
 function toast(msg){
