@@ -23,7 +23,7 @@
     "FONT_URL": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap",
     "FOOTER_BG": "#3a2a28",
     "FOOTER_CREDIT": "Demo Tema Floral Romance",
-    "FOOTER_DIM": "#8a736c",
+    "FOOTER_DIM": "#a3918c",
     "FOOTER_HI": "#f3ddd6",
     "FOOTER_TEXT": "#c9b3aa",
     "G1": "../../assets/hero-floral.jpg",
@@ -33,7 +33,7 @@
     "GIFT_SUB": "#e5bfae",
     "GIFT_TEXT": "#fbeeee",
     "INK": "#4a3a34",
-    "INK_SOFT": "#96786d",
+    "INK_SOFT": "#856a60",
     "LINE": "rgba(183,110,121,.35)",
     "MAPS_Q": "Graha+Harmoni+Convention+Hall+Medan",
     "P1": "Putra pertama dari Bapak <b>H. Bambang Sutrisno</b> & Ibu <b>Hj. Ratna Dewi</b>",
@@ -75,7 +75,7 @@
     "FONT_URL": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap",
     "FOOTER_BG": "#241a10",
     "FOOTER_CREDIT": "Demo Tema Adat Jawa",
-    "FOOTER_DIM": "#8a7452",
+    "FOOTER_DIM": "#958162",
     "FOOTER_HI": "#f0e3bd",
     "FOOTER_TEXT": "#c9b98f",
     "G1": "../../assets/hero-jawa.jpg",
@@ -127,7 +127,7 @@
     "FONT_URL": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap",
     "FOOTER_BG": "#1d1512",
     "FOOTER_CREDIT": "Demo Tema Adat Batak",
-    "FOOTER_DIM": "#7d6a55",
+    "FOOTER_DIM": "#8d7d6a",
     "FOOTER_HI": "#f0d5cd",
     "FOOTER_TEXT": "#c4a98a",
     "G1": "../../assets/hero-batak.jpg",
@@ -179,7 +179,7 @@
     "FONT_URL": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap",
     "FOOTER_BG": "#0a241c",
     "FOOTER_CREDIT": "Demo Tema Islami",
-    "FOOTER_DIM": "#5f7268",
+    "FOOTER_DIM": "#7a8a82",
     "FOOTER_HI": "#d9e8dd",
     "FOOTER_TEXT": "#a9c4b4",
     "G1": "../../assets/hero-islami.jpg",
@@ -231,7 +231,7 @@
     "FONT_URL": "https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap",
     "FOOTER_BG": "#111111",
     "FOOTER_CREDIT": "Demo Tema Minimalis",
-    "FOOTER_DIM": "#777777",
+    "FOOTER_DIM": "#7c7c7c",
     "FOOTER_HI": "#f5f5f5",
     "FOOTER_TEXT": "#bdbdbd",
     "G1": "../../assets/hero.jpg",
@@ -241,7 +241,7 @@
     "GIFT_SUB": "#bdbdbd",
     "GIFT_TEXT": "#f5f5f5",
     "INK": "#1b1b1b",
-    "INK_SOFT": "#8a8a8a",
+    "INK_SOFT": "#767676",
     "LINE": "rgba(0,0,0,.14)",
     "MAPS_Q": "Medan",
     "P1": "Putra pertama dari Bapak <b>H. Bambang Sutrisno</b> & Ibu <b>Hj. Ratna Dewi</b>",
@@ -283,7 +283,7 @@
     "FONT_URL": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap",
     "FOOTER_BG": "#2e2620",
     "FOOTER_CREDIT": "Demo Tema Rustic",
-    "FOOTER_DIM": "#8a745f",
+    "FOOTER_DIM": "#9d8b79",
     "FOOTER_HI": "#f0d9c8",
     "FOOTER_TEXT": "#c9b394",
     "G1": "../../assets/galeri-2.jpg",
@@ -293,7 +293,7 @@
     "GIFT_SUB": "#d9a97e",
     "GIFT_TEXT": "#f7ecdc",
     "INK": "#3d3227",
-    "INK_SOFT": "#7d6c58",
+    "INK_SOFT": "#796955",
     "LINE": "rgba(181,101,74,.35)",
     "MAPS_Q": "Medan",
     "P1": "Putra pertama dari Bapak <b>H. Bambang Sutrisno</b> & Ibu <b>Hj. Ratna Dewi</b>",
@@ -335,7 +335,7 @@
     "FONT_URL": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap",
     "FOOTER_BG": "#0c0a08",
     "FOOTER_CREDIT": "Demo Tema Royal Noir",
-    "FOOTER_DIM": "#6f6350",
+    "FOOTER_DIM": "#827767",
     "FOOTER_HI": "#e8cf9f",
     "FOOTER_TEXT": "#a79a82",
     "G1": "../../assets/hero.jpg",
@@ -412,7 +412,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#06060d",
     "FOOTER_TEXT": "#9a94c7",
-    "FOOTER_DIM": "#6a6591",
+    "FOOTER_DIM": "#77739b",
     "FOOTER_HI": "#00e5ff"
   },
   {
@@ -464,7 +464,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#030309",
     "FOOTER_TEXT": "#a5a0d0",
-    "FOOTER_DIM": "#6f6a9a",
+    "FOOTER_DIM": "#75719f",
     "FOOTER_HI": "#f0abfc"
   },
   {
@@ -493,7 +493,7 @@
     "BG": "#f2fafd",
     "BG2": "#e3f2f9",
     "INK": "#0c3a54",
-    "INK_SOFT": "#5b84a0",
+    "INK_SOFT": "#527791",
     "ACCENT": "#0284c7",
     "ACCENT_DEEP": "#0c4a6e",
     "ACCENT_SOFT": "#d7ecf7",
@@ -545,7 +545,7 @@
     "BG": "#fff7f9",
     "BG2": "#ffeef3",
     "INK": "#5c2b3f",
-    "INK_SOFT": "#a87e8f",
+    "INK_SOFT": "#8c6977",
     "ACCENT": "#e75480",
     "ACCENT_DEEP": "#b03060",
     "ACCENT_SOFT": "#ffe0ea",
@@ -568,7 +568,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#4a1f30",
     "FOOTER_TEXT": "#d9a9bc",
-    "FOOTER_DIM": "#9c6b7f",
+    "FOOTER_DIM": "#b18a9a",
     "FOOTER_HI": "#ffc9da"
   },
   {
@@ -620,7 +620,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#08080a",
     "FOOTER_TEXT": "#b3a586",
-    "FOOTER_DIM": "#7a6f52",
+    "FOOTER_DIM": "#81775c",
     "FOOTER_HI": "#f5d67b"
   },
   {
@@ -672,7 +672,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#03070d",
     "FOOTER_TEXT": "#93a8b8",
-    "FOOTER_DIM": "#5f7484",
+    "FOOTER_DIM": "#657a89",
     "FOOTER_HI": "#5eead4"
   },
   {
@@ -724,7 +724,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#0d0a07",
     "FOOTER_TEXT": "#b3a284",
-    "FOOTER_DIM": "#7a6c50",
+    "FOOTER_DIM": "#85785e",
     "FOOTER_HI": "#f5d67b"
   },
   {
@@ -776,7 +776,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#080a20",
     "FOOTER_TEXT": "#9aa3d0",
-    "FOOTER_DIM": "#6a72a0",
+    "FOOTER_DIM": "#6f77a3",
     "FOOTER_HI": "#7cfc9a"
   },
   {
@@ -805,7 +805,7 @@
     "BG": "#f1e8d0",
     "BG2": "#e7dabd",
     "INK": "#2b2417",
-    "INK_SOFT": "#7a6c50",
+    "INK_SOFT": "#75674c",
     "ACCENT": "#8a6d1f",
     "ACCENT_DEEP": "#5e4a12",
     "ACCENT_SOFT": "#e2d3a8",
@@ -828,7 +828,7 @@
     "QUOTE_SRC": "— Redaksi",
     "FOOTER_BG": "#241d10",
     "FOOTER_TEXT": "#b3a67e",
-    "FOOTER_DIM": "#7f744f",
+    "FOOTER_DIM": "#8e8564",
     "FOOTER_HI": "#e8d9a8"
   },
   {
@@ -857,7 +857,7 @@
     "BG": "#eef3f8",
     "BG2": "#dde8f2",
     "INK": "#1d3557",
-    "INK_SOFT": "#5f7a99",
+    "INK_SOFT": "#58718e",
     "ACCENT": "#e63946",
     "ACCENT_DEEP": "#1d3557",
     "ACCENT_SOFT": "#ffd9dc",
@@ -880,7 +880,7 @@
     "QUOTE_SRC": "— Simcha Airlines",
     "FOOTER_BG": "#16283f",
     "FOOTER_TEXT": "#9fb8d4",
-    "FOOTER_DIM": "#6b87a8",
+    "FOOTER_DIM": "#7690af",
     "FOOTER_HI": "#ff8a94"
   },
   {
@@ -932,7 +932,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#060304",
     "FOOTER_TEXT": "#b08d8d",
-    "FOOTER_DIM": "#755858",
+    "FOOTER_DIM": "#897070",
     "FOOTER_HI": "#e5383b"
   },
   {
@@ -963,7 +963,7 @@
     "BG": "#f7f1e5",
     "BG2": "#efe3cc",
     "INK": "#4a3b2c",
-    "INK_SOFT": "#8a755c",
+    "INK_SOFT": "#7e6b54",
     "ACCENT": "#c96f4a",
     "ACCENT_DEEP": "#a5532f",
     "ACCENT_SOFT": "rgba(201,111,74,.14)",
@@ -986,7 +986,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#2e2118",
     "FOOTER_TEXT": "#c9b091",
-    "FOOTER_DIM": "#8a755c",
+    "FOOTER_DIM": "#9a8872",
     "FOOTER_HI": "#f0b98a"
   },
   {
@@ -1040,7 +1040,7 @@
     "QUOTE_SRC": "—",
     "FOOTER_BG": "#060607",
     "FOOTER_TEXT": "#a8a29a",
-    "FOOTER_DIM": "#6e6a63",
+    "FOOTER_DIM": "#7a7770",
     "FOOTER_HI": "#f0d878"
   }
 ]
