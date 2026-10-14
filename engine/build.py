@@ -52,6 +52,11 @@ def main():
             print('WARN %s: unreplaced %s' % (t['slug'], sorted(leftover)), file=sys.stderr)
         outdir = os.path.join(BASE, 'tema', t['slug'])
         os.makedirs(outdir, exist_ok=True)
+        # prefer WebP when converted asset exists (67% smaller than JPG)
+        for m in set(re.findall(r'\.\./\.\./assets/([\w-]+\.jpg)', html)):
+            webp = m[:-4] + '.webp'
+            if os.path.exists(os.path.join(BASE, 'assets', webp)):
+                html = html.replace('../../assets/' + m, '../../assets/' + webp)
         with open(os.path.join(outdir, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(html)
         rendered.append(t['slug'])
