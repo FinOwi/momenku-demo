@@ -1,41 +1,25 @@
-# Undangen — Demo Tema Undangan Digital
+# Undangen — undangen.my.id
 
-Demo tema undangan pernikahan digital **Undangen** (by FinOwi Id).
+Website Undangen (by FinOwi Id) — undangan digital premium. Bahasa Karo: *undangen* = undangan.
 
-**Website:** https://undangen.my.id/ (galeri tema)
+**Deploy:** Vercel (project `undangen`, Framework: Next.js). Domain: `undangen.my.id` (+ `www`).
 
-## 8 Tema (per 2026-10-13)
+## Struktur
 
-| Tema | URL |
-|---|---|
-| Modern Elegan ⭐ | https://undangen.my.id/tema/modern-elegan/ |
-| Floral Romance | https://undangen.my.id/tema/floral/ |
-| Ageng Jawa (adat Jawa) | https://undangen.my.id/tema/adat-jawa/ |
-| Ulos Heritage (adat Batak) | https://undangen.my.id/tema/adat-batak/ |
-| Barakah Islami | https://undangen.my.id/tema/islami/ |
-| Putih Bersih (minimalis) | https://undangen.my.id/tema/minimalis/ |
-| Kebun Rustic | https://undangen.my.id/tema/rustic/ |
-| Noir Royal | https://undangen.my.id/tema/royal/ |
+- `app/`, `components/`, `data/`, `lib/`, `hooks/` — source Next.js (homepage; `output: "export"`)
+- `public/` — aset statis yang ikut ter-deploy apa adanya:
+  - `tema/` — 21 demo tema live (`/tema/<slug>/`)
+  - `k3lola/` — panel admin internal (PIN)
+  - `engine/` — `template.html` + `themes.json` (dipakai builder & Undangen OS)
+  - `tools/` — generator link tamu, order pipeline (Python, internal)
+  - `assets/` — gambar tema
+- `vercel.json` — rewrites `/i/*`, `/admin/*`, `/pantau/*` → `https://undangen-os.vercel.app` (satu domain untuk tamu)
 
-Coba dengan nama tamu personal: `?to=Nama+Tamu` di akhir URL mana pun.
+## Workflow ubah homepage
 
-## Template engine (Fase 1)
+Edit source → `npm run build` → Vercel auto-deploy dari branch `main`.
 
-Satu template → banyak tema:
+## Catatan
 
-```
-engine/template.html   → kerangka undangan (cover, countdown, acara, galeri, RSVP, ucapan, amplop)
-engine/themes.json     → config tiap tema (warna, font, foto, ornamen, nama demo)
-engine/build.py        → render ke tema/<slug>/index.html
-```
-
-Tambah tema baru = tambah 1 blok JSON + `python3 engine/build.py`. Nanti `themes.json`
-diganti input form pelanggan (nama, tanggal, foto) — fondasi sistem order manual via WA.
-
-## Isi tiap demo
-Cover + sapaan nama tamu (`?to=`) · ayat/quote · profil mempelai · countdown live ·
-Simpan ke Google Calendar · Akad & Resepsi + Google Maps · galeri + lightbox ·
-love story · RSVP · buku ucapan · amplop digital + salin nomor · musik (demo).
-
-## Data
-Seluruh nama, tanggal, alamat, dan nomor rekening di demo ini **fiktif**. Foto dibuat dengan AI.
+- `simcha.my.id` (repo `FinOwi/simcha-redirect`) redirect permanen → `undangen.my.id`.
+- Backend: Firebase `simcha-rsvp` (RSVP/ucapan), Supabase (data order), Cloudinary (foto).
