@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Panel · Simcha</title>
+<style>
+:root{--bg:#0b0d12;--card:#141824;--card2:#1a2133;--gold:#d4af37;--gold-d:#a8852a;--txt:#edeae2;--dim:#98a0b3;--line:#263046;--red:#e5484d;--green:#3fb950;--blue:#4d9fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;min-height:100vh;font-size:15px}
+.wrap{max-width:640px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:22px;letter-spacing:.5px}
+h1 .dot{color:var(--gold)}
+.sub{color:var(--dim);font-size:13px;margin-top:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.card h2{font-size:15px;margin-bottom:12px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;font-size:12px}
+label{display:block;font-size:13px;color:var(--dim);margin:12px 0 5px}
+label b{color:var(--txt);font-weight:600}
+input[type=text],input[type=password],input[type=datetime-local],select,textarea{width:100%;background:var(--card2);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:11px 12px;font-size:15px;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+textarea{resize:vertical;min-height:64px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:12px;color:var(--dim);margin-top:4px}
+.btn{display:block;width:100%;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer;margin-top:14px;font-family:inherit}
+.btn-gold{background:linear-gradient(135deg,#e3c558,#b8942a);color:#191204}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--txt);margin-top:10px}
+.btn:disabled{opacity:.5;cursor:wait}
+.btn-danger{background:transparent;border:1px solid var(--red);color:var(--red)}
+.tabs{display:flex;gap:8px;margin-top:18px}
+.tab{flex:1;text-align:center;padding:11px;border-radius:10px;background:var(--card);border:1px solid var(--line);color:var(--dim);font-size:14px;font-weight:600;cursor:pointer}
+.tab.on{background:var(--card2);color:var(--gold);border-color:var(--gold-d)}
+#thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+#thumbs .th{position:relative;width:72px;height:72px;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+#thumbs .th img{width:100%;height:100%;object-fit:cover}
+#thumbs .th .n{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);font-size:10px;text-align:center;padding:2px}
+#thumbs .th .x{position:absolute;top:2px;right:2px;background:rgba(0,0,0,.7);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;line-height:1;cursor:pointer}
+#thumbs .th.first{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+#log{background:#080a0f;border:1px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,monospace;font-size:12.5px;line-height:1.7;max-height:260px;overflow:auto;margin-top:12px;white-space:pre-wrap}
+#log .ok{color:var(--green)} #log .err{color:var(--red)} #log .inf{color:var(--blue)}
+.order{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px}
+.order .s{flex:1;min-width:0}.order .s b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.order .s span{font-size:12px;color:var(--dim)}
+.ibtn{border:1px solid var(--line);background:var(--card);color:var(--txt);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer;white-space:nowrap}
+.ibtn.gold{border-color:var(--gold-d);color:var(--gold)}
+.check{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:14px}
+.check input{width:20px;height:20px;accent-color:var(--gold)}
+.gate{min-height:70vh;display:flex;align-items:center;justify-content:center}
+.gate .card{width:100%;max-width:340px;text-align:center}
+.gate input{text-align:center;font-size:22px;letter-spacing:8px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.kv span{color:var(--dim)} .kv b{font-weight:600;text-align:right;word-break:break-all}
+.biglink{display:block;background:var(--card2);border:1px solid var(--gold-d);border-radius:10px;padding:13px;margin-top:10px;color:var(--gold);text-decoration:none;font-weight:600;word-break:break-all;font-size:14px}
+.warn{background:rgba(229,72,77,.1);border:1px solid var(--red);border-radius:10px;padding:12px;font-size:13px;margin-top:12px}
+.okbox{background:rgba(63,185,80,.1);border:1px solid var(--green);border-radius:10px;padding:12px;font-size:13px;margin-top:12px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ PIN GATE ============ -->
+<div id="gate" class="gate">
+  <div class="card">
+    <h1>Panel <span class="dot">Simcha</span></h1>
+    <p class="sub">Area khusus admin</p>
+    <label for="pin">PIN 6 digit</label>
+    <input type="password" id="pin" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="••••••">
+    <button class="btn btn-gold" id="btnPin">Masuk</button>
+    <p class="hint" id="pinErr" style="color:var(--red);margin-top:8px"></p>
+  </div>
+</div>
+
+<!-- ============ SETUP ============ -->
+<div id="setup" hidden>
+  <h1>Panel <span class="dot">Simcha</span></h1>
+  <p class="sub">Pengaturan awal — cukup sekali, tersimpan di perangkat ini saja</p>
+  <div class="card">
+    <h2>Kredensial</h2>
+    <label><b>Supabase URL</b></label>
+    <input type="text" id="sSupaUrl" placeholder="https://xxxx.supabase.co">
+    <label><b>Supabase anon key</b></label>
+    <input type="password" id="sSupaAnon" placeholder="eyJhbGciOi...">
+    <label><b>GitHub token (PAT)</b> <span class="hint">— github.com → Settings → Developer settings → Personal access tokens → scope <b>repo</b></span></label>
+    <input type="password" id="sGhPat" placeholder="github_pat_...">
+    <button class="btn btn-gold" id="btnSaveSetup">Simpan &amp; Lanjut</button>
+    <p class="hint">Tidak ada kredensial yang dikirim ke mana pun selain API resmi Supabase &amp; GitHub.</p>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" hidden>
+  <h1>Panel <span class="dot">Simcha</span></h1>
+  <p class="sub">Kelola order undangan · <span id="themeCount"></span> tema</p>
+  <div class="tabs">
+    <div class="tab on" data-tab="order">＋ Order Baru</div>
+    <div class="tab" data-tab="list">Daftar Order</div>
+    <div class="tab" data-tab="cfg">Pengaturan</div>
+  </div>
+
+  <!-- ===== TAB: ORDER BARU ===== -->
+  <div id="tab-order">
+    <div class="card">
+      <h2>Tema &amp; Slug</h2>
+      <label><b>Tema</b></label>
+      <select id="fTema"></select>
+      <label><b>Slug</b> <span class="hint">— huruf kecil, angka, strip. Jadi: simcha.my.id/<span id="slugPrev">slug</span>/</span></label>
+      <input type="text" id="fSlug" placeholder="rizky-putri" autocomplete="off">
+      <p class="hint" id="slugStat"></p>
+    </div>
+
+    <div class="card">
+      <h2>Mempelai</h2>
+      <div class="row2">
+        <div><label>Nama pendek 1</label><input type="text" id="fC1" placeholder="Rizky"></div>
+        <div><label>Nama pendek 2</label><input type="text" id="fC2" placeholder="Putri"></div>
+      </div>
+      <label>Nama lengkap 1</label><input type="text" id="fC1f" placeholder="Rizky Pratama">
+      <label>Nama lengkap 2</label><input type="text" id="fC2f" placeholder="Putri Anjani">
+      <label>Orang tua 1 <span class="hint">— cth: Putra dari Bpk. H. Ahmad &amp; Ibu Siti</span></label>
+      <input type="text" id="fP1" placeholder="">
+      <label>Orang tua 2</label>
+      <input type="text" id="fP2" placeholder="">
+    </div>
+
+    <div class="card">
+      <h2>Acara</h2>
+      <label><b>Tanggal &amp; jam</b></label>
+      <input type="datetime-local" id="fDt">
+      <p class="hint" id="dateAuto"></p>
+      <label>Batas RSVP <span class="hint">— otomatis H-10, bisa diubah</span></label>
+      <input type="text" id="fRsvp" placeholder="10 Februari 2027">
+      <label><b>Venue</b></label><input type="text" id="fVenue" placeholder="Gedung Serbaguna">
+      <label>Alamat</label><input type="text" id="fVenueAddr" placeholder="Jl. ...">
+      <label>Kata kunci Maps</label><input type="text" id="fMapsQ" placeholder="Gedung Serbaguna Medan">
+    </div>
+
+    <div class="card">
+      <h2>Amplop Digital</h2>
+      <div class="row2">
+        <div><label>Bank / e-wallet 1</label><input type="text" id="fG1b" placeholder="Bank BCA"></div>
+        <div><label>Nomor 1</label><input type="text" id="fG1n" placeholder="123 456 7890"></div>
+      </div>
+      <label>Atas nama 1 <span class="hint">— kosong = otomatis "a.n. [mempelai 1]"</span></label>
+      <input type="text" id="fG1a" placeholder="">
+      <div class="check"><input type="checkbox" id="fG2c" checked><label style="margin:0" for="fG2c">Pakai rekening kedua</label></div>
+      <div id="g2wrap">
+        <div class="row2">
+          <div><label>Bank / e-wallet 2</label><input type="text" id="fG2b" placeholder="DANA"></div>
+          <div><label>Nomor 2</label><input type="text" id="fG2n" placeholder="0812..."></div>
+        </div>
+        <label>Atas nama 2</label><input type="text" id="fG2a" placeholder="">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Foto <span class="hint">— maks 30, foto pertama = cover</span></h2>
+      <input type="file" id="fPhotos" accept="image/*" multiple style="margin-top:6px">
+      <div id="thumbs"></div>
+    </div>
+
+    <div class="card">
+      <h2>Kutipan <span class="hint">— opsional, kosong = default tema</span></h2>
+      <label>Isi kutipan</label><textarea id="fQuote" placeholder=""></textarea>
+      <label>Sumber</label><input type="text" id="fQuoteSrc" placeholder="—">
+    </div>
+
+    <button class="btn btn-ghost" id="btnPreview">👁 Pratinjau dulu</button>
+    <button class="btn btn-gold" id="btnPublish">🚀 Render &amp; Publish</button>
+
+    <div id="log" hidden></div>
+
+    <div id="result" class="card" hidden>
+      <h2>Hasil</h2>
+      <div id="resultBody"></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB: DAFTAR ORDER ===== -->
+  <div id="tab-list" hidden>
+    <div class="card">
+      <h2>Order yang sudah live</h2>
+      <div id="orderList"><p class="hint">Memuat...</p></div>
+      <button class="btn btn-ghost" id="btnReload">↻ Muat ulang</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB: PENGATURAN ===== -->
+  <div id="tab-cfg" hidden>
+    <div class="card">
+      <h2>Kredensial</h2>
+      <label>Supabase URL</label><input type="text" id="cSupaUrl">
+      <label>Supabase anon key</label><input type="password" id="cSupaAnon">
+      <label>GitHub token (PAT)</label><input type="password" id="cGhPat">
+      <button class="btn btn-gold" id="btnSaveCfg">Simpan</button>
+      <button class="btn btn-ghost btn-danger" id="btnWipe">Hapus semua data panel dari perangkat ini</button>
+      <p class="hint" style="margin-top:10px">PIN bisa diganti — hubungi bow.</p>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+"use strict";
+/* ================= KONFIG ================= */
+const PIN_HASH = "225af1b775ed782b1fdf37a5abaf7051ee1124303ca2d58b975411819bd299f5";
+const REPO = "FinOwi/momenku-demo";
+const SITE = "https://simcha.my.id";
+const BUCKET = "simcha-photos";
+const HARI = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+const BULAN = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const LS_CFG = "simcha_panel_cfg", LS_OK = "simcha_panel_ok";
+
+const $ = id => document.getElementById(id);
+let THEMES = [], PHOTOS = []; // PHOTOS: [{file, url(obj), name}]
+
+/* ================= UTIL ================= */
+async function sha256hex(s){
+  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+function b64encodeUnicode(s){
+  const b = new TextEncoder().encode(s); let r = "";
+  for(let i=0;i<b.length;i+=0x8000) r += String.fromCharCode.apply(null, b.subarray(i,i+0x8000));
+  return btoa(r);
+}
+function log(msg, cls){
+  const el = $("log"); el.hidden = false;
+  const d = document.createElement("div"); if(cls) d.className = cls; d.textContent = msg;
+  el.appendChild(d); el.scrollTop = el.scrollHeight;
+}
+function logClear(){ $("log").innerHTML=""; $("log").hidden = true; $("result").hidden = true; }
+function getCfg(){ try{ return JSON.parse(localStorage.getItem(LS_CFG))||null; }catch(e){ return null; } }
+function saveCfg(c){ localStorage.setItem(LS_CFG, JSON.stringify(c)); }
+function ghHeaders(cfg, extra){
+  return Object.assign({"Accept":"application/vnd.github+json","Authorization":"Bearer "+cfg.ghPat}, extra||{});
+}
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+/* ================= PIN GATE ================= */
+$("btnPin").onclick = async ()=>{
+  const h = await sha256hex($("pin").value.trim());
+  if(h === PIN_HASH){ sessionStorage.setItem(LS_OK,"1"); enter(); }
+  else { $("pinErr").textContent = "PIN salah."; $("pin").value=""; }
+};
+$("pin").addEventListener("keydown", e=>{ if(e.key==="Enter") $("btnPin").click(); });
+
+function enter(){
+  $("gate").hidden = true;
+  const cfg = getCfg();
+  if(!cfg || !cfg.supaUrl || !cfg.supaAnon || !cfg.ghPat){ $("setup").hidden = false; }
+  else { showApp(); }
+}
+$("btnSaveSetup").onclick = ()=>{
+  const c = { supaUrl:$("sSupaUrl").value.trim().replace(/\/+$/,""), supaAnon:$("sSupaAnon").value.trim(), ghPat:$("sGhPat").value.trim() };
+  if(!c.supaUrl || !c.supaAnon || !c.ghPat){ alert("Lengkapi ketiga kolom dulu."); return; }
+  saveCfg(c); $("setup").hidden = true; showApp();
+};
+if(sessionStorage.getItem(LS_OK)==="1") enter();
+
+function showApp(){
+  $("app").hidden = false;
+  const c = getCfg();
+  $("cSupaUrl").value = c.supaUrl; $("cSupaAnon").value = c.supaAnon; $("cGhPat").value = c.ghPat;
+  loadThemes();
+}
+
+/* ================= TABS ================= */
+document.querySelectorAll(".tab").forEach(t=>{
+  t.onclick = ()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
+    t.classList.add("on");
+    ["order","list","cfg"].forEach(k=>{ $("tab-"+k).hidden = (k !== t.dataset.tab); });
+    if(t.dataset.tab==="list") listOrders();
+  };
+});
+
+/* ================= TEMA ================= */
+async function loadThemes(){
+  if(THEMES.length) return;
+  try{
+    const r = await fetch("../engine/themes.json");
+    THEMES = await r.json();
+    const sel = $("fTema");
+    THEMES.forEach(t=>{ const o=document.createElement("option"); o.value=t.slug; o.textContent=t.name||t.slug; sel.appendChild(o); });
+    $("themeCount").textContent = THEMES.length;
+    // prefill nama dari tema pertama (seperti new-order.py)
+    applyThemeDefaults();
+  }catch(e){ log("Gagal memuat themes.json: "+e.message, "err"); }
+}
+$("fTema").addEventListener("change", applyThemeDefaults);
+function applyThemeDefaults(){
+  const t = THEMES.find(x=>x.slug===$("fTema").value); if(!t) return;
+  if(!$("fC1").value) $("fC1").value = t.C1||"";
+  if(!$("fC1f").value) $("fC1f").value = t.C1FULL||"";
+  if(!$("fC2").value) $("fC2").value = t.C2||"";
+  if(!$("fC2f").value) $("fC2f").value = t.C2FULL||"";
+  if(!$("fP1").value) $("fP1").value = t.P1||"";
+  if(!$("fP2").value) $("fP2").value = t.P2||"";
+  if(!$("fVenue").value) $("fVenue").value = t.VENUE||"";
+  if(!$("fVenueAddr").value) $("fVenueAddr").value = t.VENUE_ADDR||"";
+  if(!$("fMapsQ").value) $("fMapsQ").value = t.MAPS_Q||"";
+}
+
+/* ================= SLUG ================= */
+let slugTimer=null;
+$("fSlug").addEventListener("input", ()=>{
+  const v = $("fSlug").value.trim().toLowerCase();
+  $("slugPrev").textContent = v||"slug";
+  clearTimeout(slugTimer);
+  if(!/^[a-z0-9-]{1,60}$/.test(v)){ $("slugStat").textContent = v? "Format: huruf kecil, angka, strip, maks 60.":""; $("slugStat").style.color="var(--red)"; return; }
+  $("slugStat").textContent = "mengecek..."; $("slugStat").style.color="var(--dim)";
+  slugTimer = setTimeout(async ()=>{
+    const cfg = getCfg(); if(!cfg) return;
+    try{
+      const r = await fetch(`https://api.github.com/repos/${REPO}/contents/u/${v}/index.html`, {headers: ghHeaders(cfg)});
+      if(r.status===404){ $("slugStat").textContent="✓ tersedia"; $("slugStat").style.color="var(--green)"; }
+      else if(r.ok){ $("slugStat").textContent="⚠ sudah dipakai — publish akan MENIMPA"; $("slugStat").style.color="var(--red)"; }
+      else { $("slugStat").textContent="tidak bisa cek ("+r.status+")"; }
+    }catch(e){ $("slugStat").textContent="tidak bisa cek (offline?)"; }
+  }, 600);
+});
+
+/* ================= TANGGAL ================= */
+$("fDt").addEventListener("change", ()=>{
+  const v = $("fDt").value; if(!v) return;
+  const d = new Date(v);
+  if(isNaN(d)) return;
+  const h=HARI[d.getDay()], t=d.getDate(), b=BULAN[d.getMonth()], y=d.getFullYear();
+  window._dates = {
+    iso: v+":00+07:00",
+    label: `${h}, ${t} ${b} ${y}`,
+    short: `${t} ${b} ${y}`,
+    cover: `${h} · ${t} ${b} ${y}`
+  };
+  const r = new Date(d); r.setDate(r.getDate()-10);
+  $("fRsvp").value = `${r.getDate()} ${BULAN[r.getMonth()]} ${r.getFullYear()}`;
+  $("dateAuto").textContent = `Label: ${window._dates.label} · Cover: ${window._dates.cover}`;
+});
+$("fG2c").addEventListener("change", e=>{ $("g2wrap").style.display = e.target.checked? "":"none"; });
+
+/* ================= FOTO ================= */
+$("fPhotos").addEventListener("change", e=>{
+  for(const f of e.target.files){
+    if(PHOTOS.length>=30){ alert("Maksimal 30 foto."); break; }
+    if(!f.type.startsWith("image/")) continue;
+    const safe = f.name.toLowerCase().replace(/[^a-z0-9.\-]/g,"-").replace(/-+/g,"-");
+    PHOTOS.push({file:f, url:URL.createObjectURL(f), name:safe});
+  }
+  e.target.value=""; renderThumbs();
+});
+function renderThumbs(){
+  const w=$("thumbs"); w.innerHTML="";
+  PHOTOS.forEach((p,i)=>{
+    const d=document.createElement("div"); d.className="th"+(i===0?" first":"");
+    d.innerHTML=`<img src="${p.url}" alt=""><div class="n">${i===0?"cover":i+1}</div><button class="x" data-i="${i}">×</button>`;
+    w.appendChild(d);
+  });
+  w.querySelectorAll(".x").forEach(b=>b.onclick=()=>{ PHOTOS.splice(+b.dataset.i,1); renderThumbs(); });
+}
+</script>
+<script>
+"use strict";
+/* ================= RENDER (porting build-order.py) ================= */
+function collectOrder(){
+  const o = {
+    tema: $("fTema").value,
+    c1:$("fC1").value.trim(), c1full:$("fC1f").value.trim()||$("fC1").value.trim(),
+    c2:$("fC2").value.trim(), c2full:$("fC2f").value.trim()||$("fC2").value.trim(),
+    p1:$("fP1").value.trim(), p2:$("fP2").value.trim(),
+    venue:$("fVenue").value.trim(), venue_addr:$("fVenueAddr").value.trim(), maps_q:$("fMapsQ").value.trim(),
+    date_rsvp:$("fRsvp").value.trim(),
+    gift1_bank:$("fG1b").value.trim(), gift1_num:$("fG1n").value.trim(), gift1_an:$("fG1a").value.trim(),
+    quote:$("fQuote").value.trim(), quote_src:$("fQuoteSrc").value.trim()
+  };
+  if($("fG2c").checked){ o.gift2_bank=$("fG2b").value.trim(); o.gift2_num=$("fG2n").value.trim(); o.gift2_an=$("fG2a").value.trim(); }
+  Object.assign(o, window._dates||{});
+  return o;
+}
+function validate(slug, order){
+  const errs=[];
+  if(!/^[a-z0-9-]{1,60}$/.test(slug)) errs.push("Slug tidak valid.");
+  if(!order.c1||!order.c2) errs.push("Nama mempelai wajib diisi.");
+  if(!window._dates) errs.push("Tanggal & jam acara wajib diisi.");
+  if(!order.venue) errs.push("Venue wajib diisi.");
+  if(!order.gift1_bank||!order.gift1_num) errs.push("Rekening 1 wajib diisi.");
+  if(PHOTOS.length===0) errs.push("Minimal 1 foto.");
+  if(PHOTOS.length>30) errs.push("Maksimal 30 foto.");
+  return errs;
+}
+function renderOrder(tpl, tema, slug, order, urls){
+  // d = dict(tema) lalu order menimpa — persis build-order.py
+  const d = Object.assign({}, tema);
+  const c1=order.c1, c2=order.c2, c1full=order.c1full, c2full=order.c2full;
+  Object.assign(d, {
+    SLUG: slug,
+    C1:c1, C1FULL:c1full, C1_INITIAL:(c1[0]||"").toUpperCase(),
+    C2:c2, C2FULL:c2full, C2_INITIAL:(c2[0]||"").toUpperCase(),
+    P1:order.p1, P2:order.p2,
+    VENUE:order.venue, VENUE_ADDR:order.venue_addr, MAPS_Q:order.maps_q,
+    DATETIME_ISO:order.iso, DATE_LABEL:order.label, DATE_SHORT:order.short,
+    DATE_RSVP:order.date_rsvp, DATE_COVER:order.cover,
+    GIFT1_BANK:order.gift1_bank, GIFT1_NUM:order.gift1_num,
+    GIFT1_RAW:order.gift1_num.replace(/\D/g,""),
+    GIFT1_AN:order.gift1_an||("a.n. "+c1full),
+    COVER_IMG: urls[0]||tema.COVER_IMG||""
+  });
+  if(order.gift2_bank) Object.assign(d,{
+    GIFT2_BANK:order.gift2_bank, GIFT2_NUM:order.gift2_num,
+    GIFT2_RAW:(order.gift2_num||"").replace(/\D/g,""),
+    GIFT2_AN:order.gift2_an||("a.n. "+c2full)
+  });
+  if(order.quote){ d.QUOTE=order.quote; d.QUOTE_SRC=order.quote_src||""; }
+  d.GALLERY_ITEMS = urls.map((u,i)=>{
+    const alt = i===0 ? `${c1} dan ${c2}` : "Momen bahagia";
+    return `<a href="${u}"><img src="${u}" alt="${esc(alt)}" loading="lazy"></a>`;
+  }).join("\n      ");
+  if(!("ROOM_HTML" in d)) d.ROOM_HTML="";
+  if(!("COVER_VIDEO" in d)) d.COVER_VIDEO='<div class="bg"></div>';
+  let html = tpl;
+  if(!order.gift2_bank){
+    html = html.replace(/\s*<div class="gift rv">\s*<div class="bank">@GIFT2_BANK@<\/div>[\s\S]*?<\/button>\s*<\/div>/, "");
+  }
+  for(const k of Object.keys(d)){
+    const v = d[k]==null?"":String(d[k]);
+    html = html.split("@"+k+"@").join(v);
+  }
+  const leftover = html.match(/@[A-Z0-9_]+@/g);
+  return {html, leftover: leftover? [...new Set(leftover)] : []};
+}
+
+/* ================= UPLOAD FOTO ================= */
+async function uploadPhotos(cfg, slug){
+  const sorted=[...PHOTOS].sort((a,b)=>a.name<b.name?-1:1);
+  const urls=[];
+  for(let i=0;i<sorted.length;i++){
+    const p=sorted[i];
+    const r=await fetch(`${cfg.supaUrl}/storage/v1/object/${BUCKET}/${slug}/${p.name}`,{
+      method:"POST", body:p.file,
+      headers:{apikey:cfg.supaAnon, Authorization:"Bearer "+cfg.supaAnon, "Content-Type":p.file.type||"image/jpeg", "x-upsert":"true"}
+    });
+    if(!r.ok){ const t=await r.text(); throw new Error(`Upload gagal ${p.name}: HTTP ${r.status} ${t.slice(0,120)}`); }
+    urls.push(`${cfg.supaUrl}/storage/v1/object/public/${BUCKET}/${slug}/${p.name}`);
+    log(`  ✓ ${i+1}/${sorted.length} ${p.name}`,"ok");
+  }
+  return urls;
+}
+
+/* ================= PUBLISH ================= */
+async function doPublish(preview){
+  logClear();
+  const cfg=getCfg();
+  if(!cfg){ alert("Lengkapi kredensial di Pengaturan dulu."); return; }
+  const slug=$("fSlug").value.trim().toLowerCase();
+  const order=collectOrder();
+  const errs=validate(slug,order);
+  if(errs.length){ errs.forEach(e=>log("✗ "+e,"err")); return; }
+  const tema=THEMES.find(t=>t.slug===order.tema);
+  if(!tema){ log("✗ Tema tidak dikenal.","err"); return; }
+
+  const btn=$("btnPublish"); btn.disabled=true;
+  try{
+    log("1/4 Mengambil template...","inf");
+    const tpl=await (await fetch("../engine/template.html")).text();
+    if(!tpl.includes("@C1@")) throw new Error("template.html tidak valid");
+
+    let urls;
+    if(preview){
+      log("2/4 Mode pratinjau — tanpa upload.","inf");
+      urls=[...PHOTOS].sort((a,b)=>a.name<b.name?-1:1).map(p=>p.url);
+    }else{
+      log(`2/4 Upload ${PHOTOS.length} foto ke Supabase...`,"inf");
+      urls=await uploadPhotos(cfg,slug);
+    }
+
+    log("3/4 Render HTML...","inf");
+    const {html,leftover}=renderOrder(tpl,tema,slug,order,urls);
+    if(leftover.length) log("⚠ placeholder gantung: "+leftover.join(", "),"err");
+    else log("  ✓ tidak ada placeholder gantung","ok");
+
+    if(preview){
+      log("4/4 Membuka pratinjau...","inf");
+      const w=window.open("","_blank");
+      if(!w) throw new Error("Popup diblokir browser — izinkan popup dulu.");
+      w.document.write(html); w.document.close();
+      log("✓ Pratinjau dibuka di tab baru.","ok");
+      btn.disabled=false; return;
+    }
+
+    log("4/4 Commit ke GitHub...","inf");
+    const path=`u/${slug}/index.html`;
+    let sha=null;
+    const chk=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{headers:ghHeaders(cfg)});
+    if(chk.ok){ sha=(await chk.json()).sha; log("  ⚠ slug sudah ada — akan ditimpa","err"); }
+    else if(chk.status!==404) throw new Error("Cek slug gagal: HTTP "+chk.status);
+    const put=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{
+      method:"PUT", headers:ghHeaders(cfg,{"Content-Type":"application/json"}),
+      body:JSON.stringify({message:`Order: ${slug} (panel admin)`, content:b64encodeUnicode(html), sha:sha||undefined})
+    });
+    if(!put.ok){ const t=await put.text(); throw new Error(`GitHub commit gagal: HTTP ${put.status} ${t.slice(0,150)}`); }
+    log("✓ Commit berhasil.","ok");
+    showResult(slug);
+  }catch(e){ log("✗ "+e.message,"err"); }
+  btn.disabled=false;
+}
+$("btnPublish").onclick=()=>doPublish(false);
+$("btnPreview").onclick=()=>doPublish(true);
+
+function showResult(slug){
+  const live=`${SITE}/${slug}/`;
+  $("resultBody").innerHTML=`
+    <div class="okbox">✓ Order <b>${esc(slug)}</b> terkirim. Live ±2 menit (tunggu build Pages).</div>
+    <a class="biglink" href="${live}" target="_blank">🔗 ${live}</a>
+    <div class="kv"><span>Link tamu personal</span></div>
+    <a class="biglink" href="${live}?to=Nama+Tamu" target="_blank">${live}?to=Nama+Tamu</a>
+    <div class="kv"><span>RSVP terisolasi</span><b>Firestore slug = "${esc(slug)}"</b></div>
+    <div class="kv"><span>Foto</span><b>Supabase ${esc(BUCKET)}/${esc(slug)}/</b></div>`;
+  $("result").hidden=false;
+  $("result").scrollIntoView({behavior:"smooth"});
+}
+
+/* ================= DAFTAR ORDER ================= */
+async function listOrders(){
+  const cfg=getCfg(); const w=$("orderList");
+  w.innerHTML='<p class="hint">Memuat...</p>';
+  try{
+    const r=await fetch(`https://api.github.com/repos/${REPO}/contents/u`,{headers:ghHeaders(cfg)});
+    if(r.status===404){ w.innerHTML='<p class="hint">Belum ada order.</p>'; return; }
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    const items=(await r.json()).filter(x=>x.type==="dir");
+    if(!items.length){ w.innerHTML='<p class="hint">Belum ada order.</p>'; return; }
+    w.innerHTML="";
+    items.sort((a,b)=>a.name.localeCompare(b.name)).forEach(d=>{
+      const el=document.createElement("div"); el.className="order";
+      el.innerHTML=`<div class="s"><b>${esc(d.name)}</b><span>${SITE}/${esc(d.name)}/</span></div>
+        <button class="ibtn gold">Buka</button><button class="ibtn">Salin link tamu</button>`;
+      const [bOpen,bCopy]=el.querySelectorAll("button");
+      bOpen.onclick=()=>window.open(`${SITE}/${d.name}/`,"_blank");
+      bCopy.onclick=async()=>{ await navigator.clipboard.writeText(`${SITE}/${d.name}/?to=Nama+Tamu`); bCopy.textContent="✓ Tersalin"; setTimeout(()=>bCopy.textContent="Salin link tamu",1500); };
+      w.appendChild(el);
+    });
+  }catch(e){ w.innerHTML=`<p class="hint" style="color:var(--red)">Gagal memuat: ${esc(e.message)}</p>`; }
+}
+$("btnReload").onclick=listOrders;
+
+/* ================= PENGATURAN ================= */
+$("btnSaveCfg").onclick=()=>{
+  const c={supaUrl:$("cSupaUrl").value.trim().replace(/\/+$/,""),supaAnon:$("cSupaAnon").value.trim(),ghPat:$("cGhPat").value.trim()};
+  if(!c.supaUrl||!c.supaAnon||!c.ghPat){ alert("Lengkapi ketiga kolom."); return; }
+  saveCfg(c); alert("Tersimpan.");
+};
+$("btnWipe").onclick=()=>{
+  if(confirm("Hapus kredensial & sesi panel dari perangkat ini?")){
+    localStorage.removeItem(LS_CFG); sessionStorage.removeItem(LS_OK); location.reload();
+  }
+};
+</script>
+</body>
+</html>
