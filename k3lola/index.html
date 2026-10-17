@@ -77,14 +77,14 @@ textarea{resize:vertical;min-height:64px}
   <p class="sub">Pengaturan awal — cukup sekali, tersimpan di perangkat ini saja</p>
   <div class="card">
     <h2>Kredensial</h2>
-    <label><b>Supabase URL</b></label>
-    <input type="text" id="sSupaUrl" placeholder="https://xxxx.supabase.co">
-    <label><b>Supabase anon key</b></label>
-    <input type="password" id="sSupaAnon" placeholder="eyJhbGciOi...">
+    <label><b>Cloudinary cloud name</b> <span class="hint">— ada di dashboard Cloudinary</span></label>
+    <input type="text" id="sCloudName" placeholder="misal: dxxxxxx">
+    <label><b>Upload preset (unsigned)</b> <span class="hint">— Dashboard → Settings → Upload → Upload presets → Add, Signing Mode: Unsigned</span></label>
+    <input type="text" id="sPreset" placeholder="misal: simcha_order">
     <label><b>GitHub token (PAT)</b> <span class="hint">— github.com → Settings → Developer settings → Personal access tokens → scope <b>repo</b></span></label>
     <input type="password" id="sGhPat" placeholder="github_pat_...">
     <button class="btn btn-gold" id="btnSaveSetup">Simpan &amp; Lanjut</button>
-    <p class="hint">Tidak ada kredensial yang dikirim ke mana pun selain API resmi Supabase &amp; GitHub.</p>
+    <p class="hint">Tidak ada kredensial yang dikirim ke mana pun selain API resmi Cloudinary &amp; GitHub.</p>
   </div>
 </div>
 
@@ -189,8 +189,8 @@ textarea{resize:vertical;min-height:64px}
   <div id="tab-cfg" hidden>
     <div class="card">
       <h2>Kredensial</h2>
-      <label>Supabase URL</label><input type="text" id="cSupaUrl">
-      <label>Supabase anon key</label><input type="password" id="cSupaAnon">
+      <label>Cloudinary cloud name</label><input type="text" id="cCloudName">
+      <label>Upload preset (unsigned)</label><input type="text" id="cPreset">
       <label>GitHub token (PAT)</label><input type="password" id="cGhPat">
       <button class="btn btn-gold" id="btnSaveCfg">Simpan</button>
       <button class="btn btn-ghost btn-danger" id="btnWipe">Hapus semua data panel dari perangkat ini</button>
@@ -205,7 +205,7 @@ textarea{resize:vertical;min-height:64px}
 const PIN_HASH = "225af1b775ed782b1fdf37a5abaf7051ee1124303ca2d58b975411819bd299f5";
 const REPO = "FinOwi/momenku-demo";
 const SITE = "https://simcha.my.id";
-const BUCKET = "simcha-photos";
+const CLD_TRANSFORM = "f_auto,q_auto,w_1600"; // optimasi otomatis: format+kompres+max 1600px
 const HARI = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 const BULAN = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const LS_CFG = "simcha_panel_cfg", LS_OK = "simcha_panel_ok";
@@ -247,12 +247,12 @@ $("pin").addEventListener("keydown", e=>{ if(e.key==="Enter") $("btnPin").click(
 function enter(){
   $("gate").hidden = true;
   const cfg = getCfg();
-  if(!cfg || !cfg.supaUrl || !cfg.supaAnon || !cfg.ghPat){ $("setup").hidden = false; }
+  if(!cfg || !cfg.cloudName || !cfg.preset || !cfg.ghPat){ $("setup").hidden = false; }
   else { showApp(); }
 }
 $("btnSaveSetup").onclick = ()=>{
-  const c = { supaUrl:$("sSupaUrl").value.trim().replace(/\/+$/,""), supaAnon:$("sSupaAnon").value.trim(), ghPat:$("sGhPat").value.trim() };
-  if(!c.supaUrl || !c.supaAnon || !c.ghPat){ alert("Lengkapi ketiga kolom dulu."); return; }
+  const c = { cloudName:$("sCloudName").value.trim(), preset:$("sPreset").value.trim(), ghPat:$("sGhPat").value.trim() };
+  if(!c.cloudName || !c.preset || !c.ghPat){ alert("Lengkapi ketiga kolom dulu."); return; }
   saveCfg(c); $("setup").hidden = true; showApp();
 };
 if(sessionStorage.getItem(LS_OK)==="1") enter();
@@ -260,7 +260,7 @@ if(sessionStorage.getItem(LS_OK)==="1") enter();
 function showApp(){
   $("app").hidden = false;
   const c = getCfg();
-  $("cSupaUrl").value = c.supaUrl; $("cSupaAnon").value = c.supaAnon; $("cGhPat").value = c.ghPat;
+  $("cCloudName").value = c.cloudName; $("cPreset").value = c.preset; $("cGhPat").value = c.ghPat;
   loadThemes();
 }
 
@@ -428,18 +428,25 @@ function renderOrder(tpl, tema, slug, order, urls){
   return {html, leftover: leftover? [...new Set(leftover)] : []};
 }
 
-/* ================= UPLOAD FOTO ================= */
+/* ================= UPLOAD FOTO (Cloudinary, unsigned preset) ================= */
+function cldDeliveryUrl(secureUrl){
+  // selipkan transformasi optimasi: format otomatis (WebP/AVIF), kualitas otomatis, max 1600px
+  return secureUrl.replace("/upload/", "/upload/"+CLD_TRANSFORM+"/");
+}
 async function uploadPhotos(cfg, slug){
   const sorted=[...PHOTOS].sort((a,b)=>a.name<b.name?-1:1);
   const urls=[];
   for(let i=0;i<sorted.length;i++){
     const p=sorted[i];
-    const r=await fetch(`${cfg.supaUrl}/storage/v1/object/${BUCKET}/${slug}/${p.name}`,{
-      method:"POST", body:p.file,
-      headers:{apikey:cfg.supaAnon, Authorization:"Bearer "+cfg.supaAnon, "Content-Type":p.file.type||"image/jpeg", "x-upsert":"true"}
-    });
+    const fd=new FormData();
+    fd.append("file", p.file);
+    fd.append("upload_preset", cfg.preset);
+    fd.append("folder", "simcha/"+slug);
+    const r=await fetch(`https://api.cloudinary.com/v1_1/${cfg.cloudName}/image/upload`,{method:"POST", body:fd});
     if(!r.ok){ const t=await r.text(); throw new Error(`Upload gagal ${p.name}: HTTP ${r.status} ${t.slice(0,120)}`); }
-    urls.push(`${cfg.supaUrl}/storage/v1/object/public/${BUCKET}/${slug}/${p.name}`);
+    const j=await r.json();
+    if(!j.secure_url) throw new Error(`Upload gagal ${p.name}: respons tak dikenal`);
+    urls.push(cldDeliveryUrl(j.secure_url));
     log(`  ✓ ${i+1}/${sorted.length} ${p.name}`,"ok");
   }
   return urls;
@@ -468,7 +475,7 @@ async function doPublish(preview){
       log("2/4 Mode pratinjau — tanpa upload.","inf");
       urls=[...PHOTOS].sort((a,b)=>a.name<b.name?-1:1).map(p=>p.url);
     }else{
-      log(`2/4 Upload ${PHOTOS.length} foto ke Supabase...`,"inf");
+      log(`2/4 Upload ${PHOTOS.length} foto ke Cloudinary...`,"inf");
       urls=await uploadPhotos(cfg,slug);
     }
 
@@ -513,7 +520,7 @@ function showResult(slug){
     <div class="kv"><span>Link tamu personal</span></div>
     <a class="biglink" href="${live}?to=Nama+Tamu" target="_blank">${live}?to=Nama+Tamu</a>
     <div class="kv"><span>RSVP terisolasi</span><b>Firestore slug = "${esc(slug)}"</b></div>
-    <div class="kv"><span>Foto</span><b>Supabase ${esc(BUCKET)}/${esc(slug)}/</b></div>`;
+    <div class="kv"><span>Foto</span><b>Cloudinary folder simcha/${esc(slug)}/</b></div>`;
   $("result").hidden=false;
   $("result").scrollIntoView({behavior:"smooth"});
 }
@@ -544,8 +551,8 @@ $("btnReload").onclick=listOrders;
 
 /* ================= PENGATURAN ================= */
 $("btnSaveCfg").onclick=()=>{
-  const c={supaUrl:$("cSupaUrl").value.trim().replace(/\/+$/,""),supaAnon:$("cSupaAnon").value.trim(),ghPat:$("cGhPat").value.trim()};
-  if(!c.supaUrl||!c.supaAnon||!c.ghPat){ alert("Lengkapi ketiga kolom."); return; }
+  const c={cloudName:$("cCloudName").value.trim(),preset:$("cPreset").value.trim(),ghPat:$("cGhPat").value.trim()};
+  if(!c.cloudName||!c.preset||!c.ghPat){ alert("Lengkapi ketiga kolom."); return; }
   saveCfg(c); alert("Tersimpan.");
 };
 $("btnWipe").onclick=()=>{
