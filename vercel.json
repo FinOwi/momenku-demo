@@ -1,0 +1,1 @@
+{"$schema":"https://openapi.vercel.sh/vercel.json","rewrites":[{"destination":"https://undangen-os.vercel.app/i/:slug*","source":"/i/:slug*"},{"destination":"https://undangen-os.vercel.app/admin/:path*","source":"/admin/:path*"},{"destination":"https://undangen-os.vercel.app/pantau/:slug*","source":"/pantau/:slug*"}]}
