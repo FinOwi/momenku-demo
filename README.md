@@ -1,21 +1,21 @@
-# Simcha — Demo Tema Undangan Digital
+# Undangen — Demo Tema Undangan Digital
 
-Demo tema undangan pernikahan digital **Simcha** (by FinOwi Id).
+Demo tema undangan pernikahan digital **Undangen** (by FinOwi Id).
 
-**Website:** https://simcha.my.id/ (galeri tema)
+**Website:** https://undangen.my.id/ (galeri tema)
 
 ## 8 Tema (per 2026-10-13)
 
 | Tema | URL |
 |---|---|
-| Modern Elegan ⭐ | https://simcha.my.id/tema/modern-elegan/ |
-| Floral Romance | https://simcha.my.id/tema/floral/ |
-| Ageng Jawa (adat Jawa) | https://simcha.my.id/tema/adat-jawa/ |
-| Ulos Heritage (adat Batak) | https://simcha.my.id/tema/adat-batak/ |
-| Barakah Islami | https://simcha.my.id/tema/islami/ |
-| Putih Bersih (minimalis) | https://simcha.my.id/tema/minimalis/ |
-| Kebun Rustic | https://simcha.my.id/tema/rustic/ |
-| Noir Royal | https://simcha.my.id/tema/royal/ |
+| Modern Elegan ⭐ | https://undangen.my.id/tema/modern-elegan/ |
+| Floral Romance | https://undangen.my.id/tema/floral/ |
+| Ageng Jawa (adat Jawa) | https://undangen.my.id/tema/adat-jawa/ |
+| Ulos Heritage (adat Batak) | https://undangen.my.id/tema/adat-batak/ |
+| Barakah Islami | https://undangen.my.id/tema/islami/ |
+| Putih Bersih (minimalis) | https://undangen.my.id/tema/minimalis/ |
+| Kebun Rustic | https://undangen.my.id/tema/rustic/ |
+| Noir Royal | https://undangen.my.id/tema/royal/ |
 
 Coba dengan nama tamu personal: `?to=Nama+Tamu` di akhir URL mana pun.
 

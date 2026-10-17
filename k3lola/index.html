@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Panel · Simcha</title>
+<title>Panel · Undangen</title>
 <style>
 :root{--bg:#0b0d12;--card:#141824;--card2:#1a2133;--gold:#d4af37;--gold-d:#a8852a;--txt:#edeae2;--dim:#98a0b3;--line:#263046;--red:#e5484d;--green:#3fb950;--blue:#4d9fff}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -62,7 +62,7 @@ textarea{resize:vertical;min-height:64px}
 <!-- ============ PIN GATE ============ -->
 <div id="gate" class="gate">
   <div class="card">
-    <h1>Panel <span class="dot">Simcha</span></h1>
+    <h1>Panel <span class="dot">Undangen</span></h1>
     <p class="sub">Area khusus admin</p>
     <label for="pin">PIN 6 digit</label>
     <input type="password" id="pin" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="••••••">
@@ -73,14 +73,14 @@ textarea{resize:vertical;min-height:64px}
 
 <!-- ============ SETUP ============ -->
 <div id="setup" hidden>
-  <h1>Panel <span class="dot">Simcha</span></h1>
+  <h1>Panel <span class="dot">Undangen</span></h1>
   <p class="sub">Pengaturan awal — cukup sekali, tersimpan di perangkat ini saja</p>
   <div class="card">
     <h2>Kredensial</h2>
     <label><b>Cloudinary cloud name</b> <span class="hint">— ada di dashboard Cloudinary</span></label>
     <input type="text" id="sCloudName" placeholder="misal: dxxxxxx">
     <label><b>Upload preset (unsigned)</b> <span class="hint">— Dashboard → Settings → Upload → Upload presets → Add, Signing Mode: Unsigned</span></label>
-    <input type="text" id="sPreset" placeholder="misal: simcha_order">
+    <input type="text" id="sPreset" placeholder="misal: undangen_order">
     <label><b>GitHub token (PAT)</b> <span class="hint">— github.com → Settings → Developer settings → Personal access tokens → scope <b>repo</b></span></label>
     <input type="password" id="sGhPat" placeholder="github_pat_...">
     <button class="btn btn-gold" id="btnSaveSetup">Simpan &amp; Lanjut</button>
@@ -90,7 +90,7 @@ textarea{resize:vertical;min-height:64px}
 
 <!-- ============ APP ============ -->
 <div id="app" hidden>
-  <h1>Panel <span class="dot">Simcha</span></h1>
+  <h1>Panel <span class="dot">Undangen</span></h1>
   <p class="sub">Kelola order undangan · <span id="themeCount"></span> tema</p>
   <div class="tabs">
     <div class="tab on" data-tab="order">＋ Order Baru</div>
@@ -104,7 +104,7 @@ textarea{resize:vertical;min-height:64px}
       <h2>Tema &amp; Slug</h2>
       <label><b>Tema</b></label>
       <select id="fTema"></select>
-      <label><b>Slug</b> <span class="hint">— huruf kecil, angka, strip. Jadi: simcha.my.id/<span id="slugPrev">slug</span>/</span></label>
+      <label><b>Slug</b> <span class="hint">— huruf kecil, angka, strip. Jadi: undangen.my.id/<span id="slugPrev">slug</span>/</span></label>
       <input type="text" id="fSlug" placeholder="rizky-putri" autocomplete="off">
       <p class="hint" id="slugStat"></p>
     </div>
@@ -203,8 +203,8 @@ textarea{resize:vertical;min-height:64px}
 "use strict";
 /* ================= KONFIG ================= */
 const PIN_HASH = "225af1b775ed782b1fdf37a5abaf7051ee1124303ca2d58b975411819bd299f5";
-const REPO = "FinOwi/momenku-demo";
-const SITE = "https://simcha.my.id";
+const REPO = "FinOwi/undangen";
+const SITE = "https://undangen.my.id";
 const CLD_TRANSFORM = "f_auto,q_auto,w_1600"; // optimasi otomatis: format+kompres+max 1600px
 const HARI = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 const BULAN = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
@@ -441,7 +441,7 @@ async function uploadPhotos(cfg, slug){
     const fd=new FormData();
     fd.append("file", p.file);
     fd.append("upload_preset", cfg.preset);
-    fd.append("folder", "simcha/"+slug);
+    fd.append("folder", "undangen/"+slug);
     const r=await fetch(`https://api.cloudinary.com/v1_1/${cfg.cloudName}/image/upload`,{method:"POST", body:fd});
     if(!r.ok){ const t=await r.text(); throw new Error(`Upload gagal ${p.name}: HTTP ${r.status} ${t.slice(0,120)}`); }
     const j=await r.json();
@@ -520,7 +520,7 @@ function showResult(slug){
     <div class="kv"><span>Link tamu personal</span></div>
     <a class="biglink" href="${live}?to=Nama+Tamu" target="_blank">${live}?to=Nama+Tamu</a>
     <div class="kv"><span>RSVP terisolasi</span><b>Firestore slug = "${esc(slug)}"</b></div>
-    <div class="kv"><span>Foto</span><b>Cloudinary folder simcha/${esc(slug)}/</b></div>`;
+    <div class="kv"><span>Foto</span><b>Cloudinary folder undangen/${esc(slug)}/</b></div>`;
   $("result").hidden=false;
   $("result").scrollIntoView({behavior:"smooth"});
 }

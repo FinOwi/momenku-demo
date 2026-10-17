@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Simcha order pipeline — render order jadi undangan live.
+"""Undangen order pipeline — render order jadi undangan live.
 
 Pakai: python3 build-order.py <slug> [--no-upload]
   --no-upload : lewati upload foto (pakai path lokal), untuk tes render.
@@ -8,9 +8,9 @@ Alur:
   orders/<slug>/order.json + orders/<slug>/foto/*
     -> upload foto ke Supabase Storage (bucket simcha-photos)
     -> render engine/template.html dengan data order
-    -> u/<slug>/index.html  (commit + push = live di simcha.my.id/<slug>/)
+    -> u/<slug>/index.html  (commit + push = live di undangen.my.id/<slug>/)
 
-RSVP/ucapan otomatis terisolasi per slug via Firestore (SIMCHA_SLUG).
+RSVP/ucapan otomatis terisolasi per slug via Firestore (UNDANGEN_SLUG).
 """
 import json
 import mimetypes
@@ -28,7 +28,7 @@ IMG_EXT = ('.jpg', '.jpeg', '.png', '.webp')
 
 
 def supa_cfg():
-    # kredensial project Supabase khusus Simcha (600, jangan di-commit)
+    # kredensial project Supabase khusus Undangen (600, jangan di-commit)
     p = os.path.expanduser('~/workspace/simcha-backup/supabase.json')
     d = json.load(open(p, encoding='utf-8'))
     return d['url'], d['anon_key']

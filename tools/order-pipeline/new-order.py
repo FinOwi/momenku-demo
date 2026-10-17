@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Simcha order pipeline — scaffold order baru.
+"""Undangen order pipeline — scaffold order baru.
 
 Pakai: python3 new-order.py <slug> --tema <slug-tema>
 Contoh: python3 new-order.py rizky-putri --tema floral

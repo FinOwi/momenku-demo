@@ -1,6 +1,6 @@
-# Simcha Order Pipeline
+# Undangen Order Pipeline
 
-Ubah order pelanggan menjadi undangan live di `simcha.my.id/<slug>/`.
+Ubah order pelanggan menjadi undangan live di `undangen.my.id/<slug>/`.
 
 ## Arsitektur
 
@@ -26,12 +26,12 @@ python3 build-order.py rizky-putri
 
 # 4. deploy
 git add u/rizky-putri && git commit -m "Order: rizky-putri" && git push
-# live di https://simcha.my.id/rizky-putri/ (±2 mnt)
+# live di https://undangen.my.id/rizky-putri/ (±2 mnt)
 ```
 
 ## Catatan
 
 - `orders/` di-gitignore (data mentah pelanggan tetap privat); yang di-commit hanya `u/<slug>/`.
 - Maks 30 foto per order (sesuai paket: 10/20/30).
-- Link tamu personal: `simcha.my.id/<slug>/?to=Nama+Tamu` (lihat `tools/link-tamu/`).
+- Link tamu personal: `undangen.my.id/<slug>/?to=Nama+Tamu` (lihat `tools/link-tamu/`).
 - Mempelai pantau RSVP di Firebase Console → Firestore → filter `slug == <slug>`.
